@@ -1,15 +1,34 @@
-export const Preview = ({ preview, defaultPreview }) => {
-    const deadImage = preview === null && defaultPreview === null;
+import {MoonLoader} from "react-spinners";
+
+
+export const Preview = ({ preview, defaultPreview, video }) => {
+    const isVideoDead = video === null;
 
     return (
         <>
-            { deadImage && <h2>Loading</h2> || (
+            { isVideoDead ? (
+                <div className='relative w-[100px] bg-gray-600 bg-blend-overlay'>
+                    <MoonLoader
+                        cssOverride={{
+                            position: "absolute",
+                            zIndex: 1,
+                            top: "19%",
+                            left: "32%",
+                        }}
+                        size={27.5}
+                        color='#e3e3e3'
+                        speedMultiplier={0.4}/>
+                    <img
+                        className='h-[59px] object-cover opacity-0'
+                        src={`${import.meta.env.VITE_DEV_URL}/api/file/${preview?.name || defaultPreview?.name}`}
+                        alt='Превью'/>
+                </div>
+            ) : (
                 <img
-                    className='w-[100px]'
-                    src={`http://localhost:25565/api/file/${preview?.name || defaultPreview?.name}`}
+                    className='w-[100px] h-[59px] object-cover'
+                    src={`${import.meta.env.VITE_DEV_URL}/api/file/${preview?.name || defaultPreview?.name}`}
                     alt='Превью'/>
             )}
-
         </>
     )
 }

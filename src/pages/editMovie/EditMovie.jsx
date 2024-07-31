@@ -1,14 +1,12 @@
 import {EditMovieDetail} from "@modules/editMovie/EditMovieDetail.jsx";
-import {Container} from "@components/container/Container.jsx";
+import {ButtonBackward} from "@components/buttonBackward/ButtonBackward.jsx";
 
 export const EditMovie = () => {
+
     return (
-        <section className='bg-container'>
-            <Container>
-                <div className='max-w-[760px] mx-auto'>
-                    <EditMovieDetail/>
-                </div>
-            </Container>
+        <section className='bg-container min-h-[calc(100vh_-_170px)] flex justify-center relative'>
+            <ButtonBackward/>
+            <EditMovieDetail/>
         </section>
     )
 }

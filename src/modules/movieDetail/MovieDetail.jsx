@@ -15,7 +15,8 @@ export const MovieDetail = () => {
                             <MainContent result={r}/>
                         </div>
                     </Flex>
-                ) }
+                )
+                 }
             </Await>
         </Suspense>
     )

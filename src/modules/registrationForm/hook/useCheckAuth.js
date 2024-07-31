@@ -9,6 +9,7 @@ export const useCheckAuth = () => {
     const {data: userInfo} = useQuery({
         queryKey: ['getUserInfo'],
         queryFn: getUserInfo,
+        staleTime: 60 * 1000 * 24 * 30,
         enabled: !!cookie.findKey('token'),
     })
 

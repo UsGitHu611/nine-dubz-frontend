@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
                 element: <Movie/>,
                 loader: async ({ params }) => {
                     const { movieCode } = params;
-                    const response = fetch(`http://localhost:25565/api/movie/${movieCode}`);
+                    const response = fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/${movieCode}`);
                     return defer({ response: (await response).json()});
                 }
             },
@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
                 element: <EditMovie/>,
                 loader: async ({ params }) => {
                     const { movieCode } = params;
-                    const response = fetch(`http://localhost:25565/api/movie/user/${movieCode}`,{
+                    const response = fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/user/${movieCode}`,{
                         credentials: "include"
                     });
                     return defer({ response: (await response).json()});

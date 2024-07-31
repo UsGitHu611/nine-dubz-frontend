@@ -10,6 +10,10 @@ class Cookie {
         return this.#cookieStruct[key];
     }
 
+    // deleteKey(key){
+    //     document.cookie = `${key}=`;
+    // }
+
 }
 
 export const cookie = new Cookie();

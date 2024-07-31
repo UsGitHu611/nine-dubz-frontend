@@ -12,7 +12,7 @@ export const [rulesLogin, rulesEmail, rulesPassword] = [
     },
     {
         required: true,
-        pattern: "^[a-zA-Z0-9\$\~\@\#\%\*\!\&\?\=\(\)]{8,}$",
+        pattern: "^[a-zA-Z0-9$~@#%*!&?=()]{8,}$",
         message: "Неверный пароль"
     }
 ]

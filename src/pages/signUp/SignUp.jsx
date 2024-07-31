@@ -1,12 +1,9 @@
 import { Registration } from "@modules/registrationForm/Registration";
-import { Flex } from "antd";
 
 export const SignUp = () => {
     return (
-        <section className='bg-container'>
-            <Flex justify='center'>
-                <Registration/>
-            </Flex>
+        <section className='bg-container min-h-[calc(100vh_-_170px)] flex justify-center '>
+            <Registration/>
         </section>
     );
 }

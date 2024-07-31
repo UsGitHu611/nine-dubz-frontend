@@ -27,30 +27,20 @@ body{
     position: relative;
 }
 
+.ant-input-textarea-show-count:has(#replyPanel) .ant-input-data-count{
+    top: 4px;
+}
+
+.ant-input-textarea-show-count:has(#replyPanel) #replyPanel{
+    padding-right: 80px;
+}
+
 :where([class*=css-dev-only-do-not-override]).ant-input-textarea-show-count .ant-input-data-count{
     color: rgba(240, 248, 255, 0.68);
 }
 
 :where([class*=css-dev-only-do-not-override]).ant-menu::before{
     position: absolute;
-}
-
-:where([class*=css-dev-only-do-not-override]).ant-empty .ant-empty-image svg{
-    display: none;
-}
-
-:where([class*=css-dev-only-do-not-override]).ant-empty-normal .ant-empty-description{
-    display: none;
-}
-
-.ant-empty-image{
-    background-image: url("assets/goal.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-:where([class*=css-dev-only-do-not-override]).ant-empty .ant-empty-image{
-    height: 400px;
 }
 
 :where([class*=css-dev-only-do-not-override]).ant-upload.ant-upload-drag > .ant-upload.ant-upload-btn{
@@ -83,17 +73,23 @@ body{
     background-color:rgb(229 231 235);
 }
 
+:where([class*=css-dev-only-do-not-override]).ant-btn-text:not(:disabled):not(.ant-btn-disabled):hover{
+    color: inherit;
+    border-color: inherit;
+    background-color:rgb(229 231 235);
+}
+
 :where([class*=css-dev-only-do-not-override]).ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover{
     color: rgb(229 231 235);
     border-color: rgba(214,0,12,0.75);
     background-color:rgba(214,0,12,0.75) ;
 }
 
+
 .ant-card .ant-card-cover img{
     border-radius: inherit;
     height: 201px;
 }
-
 
 .ant-table-row.ant-table-row-level-0 > td:last-child{
     cursor: pointer;
@@ -110,9 +106,20 @@ body{
     transform: translateX(0);
 }
 
-.ant-table-row.ant-table-row-level-0 > td:last-child:hover{
+.ant-table-row.ant-table-row-level-0 > td:last-child:hover,
+.ant-table-row.ant-table-row-level-0.ant-table-row-selected > td:last-child:hover{
     background: linear-gradient(280deg, rgba(255,255,255,0.05), rgba(255,0,7,0.40));
 }
+
+.ant-input-affix-wrapper{
+    border-bottom: 1px solid rgba(229, 231, 235, 10%);
+}
+
+.ant-input-affix-wrapper-focused{
+    border-bottom: 1px solid #fff;
+}
+
+
 
 
 

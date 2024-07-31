@@ -1,6 +1,6 @@
 import { Form, Input, Button, Flex, Tooltip } from "antd";
 import { MailOutlined, LockOutlined, InfoCircleOutlined, GoogleOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import { ListRules } from "./components/listRules/ListRules"
 import { useRegister } from "./hook/useRegister";
 import { useGetUrlGoogle } from "./hook/useGetUrlGoogle";
@@ -10,11 +10,11 @@ import { InputLogin } from "./components/inputLogin/InputLogin";
 
 export const Registration = () => {
     const [form] = Form.useForm();
-    const { handleRegister, userInfo} = useRegister();
+    const { handleRegister, message } = useRegister();
     const googleUrl = useGetUrlGoogle();
 
     return (
-        <Form className='min-w-80' onFinish={handleRegister.mutate} form={form} layout="vertical">
+        <Form className='min-w-80 pt-[80px]' onFinish={handleRegister} form={form} layout="vertical">
 
             <Form.Item>
                 <Link to={googleUrl} className='flex w-full gap-2 justify-center rounded-md border
@@ -32,25 +32,28 @@ export const Registration = () => {
                 </div>
             </Form.Item>
 
-            <InputLogin />
+            <InputLogin/>
 
             <Form.Item className='text-gray-200' label='Email' name='email' rules={[rulesEmail]}>
-                <Input size='large' prefix={<MailOutlined />} />
+                <Input size='large' prefix={<MailOutlined/>}/>
             </Form.Item>
 
-            <Form.Item className='text-gray-200' label='Password' name='password' rules={[rulesPassword]}>
-                <Input size='large' prefix={<LockOutlined />} suffix={
+            <Form.Item className='text-gray-200' label='Password' name='password'>
+                <Input size='large' prefix={<LockOutlined/>} suffix={
                     <Tooltip placement='right' title={
-                        <ListRules listRiles={tooltipRulesPassword} field='Пароль' />
+                        <ListRules listRiles={tooltipRulesPassword} field='Пароль'/>
                     }>
-                        <InfoCircleOutlined />
+                        <InfoCircleOutlined/>
                     </Tooltip>
-                } />
+                }/>
             </Form.Item>
+            <small className='text-red-500 block mt-2'>
+                {message?.message}
+            </small>
 
             <Form.Item>
                 <Flex align='center' justify='space-between'>
-                    <Button type="default" htmlType="submit">
+                <Button type="default" htmlType="submit">
                         Регистрация
                     </Button>
                     <Link className='text-gray-200' to='/signin'>

@@ -1,43 +1,74 @@
 import {useUploadFile} from "@modules/studioPanel/hook/useUploadFile.js";
-import {Form, Input, Upload, Button} from "antd";
+import {Form, Input, Upload, Button, App} from "antd";
 import FormItem from "antd/es/form/FormItem";
 import {PlusOutlined} from "@ant-design/icons";
 import {studioStore} from "@modules/studioPanel/store/store.js";
 import {useMutation} from "@tanstack/react-query";
 import {useShallow} from "zustand/react/shallow";
+import {useTranslate} from "@modules/menu/hook/useTranslate.js";
 
 export const EditMovie = () => {
     useUploadFile();
-    const {filePos, isLoadFile, fileSize, createMovieInfo, showModal} = studioStore(
+    const {
+        file,
+        filePos,
+        fileSize,
+        isLoadFile,
+        setShowModal,
+        setCurrentStep,
+        createMovieInfo,
+    } = studioStore(
         useShallow(state => ({
+            file: state.file,
             filePos: state.filePos,
+            showModal : state.showModal,
             isLoadFile: state.isLoadFile,
             fileSize: state.fileData.size,
+            setShowModal : state.setShowModal,
+            setCurrentStep: state.setCurrentStep,
             createMovieInfo: state.createMovieInfo,
-            showModal : state.showModal
         }))
     )
     const [form] = Form.useForm();
     const percent = Math.round((filePos / fileSize) * 100);
+    const { notification } = App.useApp();
+    const {t} = useTranslate();
+
 
     const { mutate, data: success } = useMutation({
         mutationKey: ['editMovie'],
-        mutationFn: (formData) => createMovieInfo(formData)
+        mutationFn: (formData) => createMovieInfo(formData),
+        onSuccess : () => {
+            notification.success({
+                message: t('successAddTitle'),
+                description: t('successAddDescription')
+            })
+            setCurrentStep(0);
+            setShowModal(false);
+        }
     })
 
     const onFinish = (data) => {
         const formData = new FormData();
         for (const fieldData in data) {
-            formData.set(fieldData, data[fieldData])
+            formData.set(fieldData, data[fieldData] || "")
         }
        mutate(formData);
     }
 
-
     return (
-        <Form encType='multipart/form-data' className='pt-5' form={form} onFinish={onFinish} layout='vertical'>
+        <Form
+            encType='multipart/form-data'
+            className='pt-5'
+            form={form}
+            initialValues={{ name: file.name }}
+            onFinish={onFinish}
+            layout='vertical'>
 
-            <FormItem label='Название' required name='name'>
+            <FormItem
+                label='Название'
+                rules={[ { required: true, message: "Даб-Даб!!!" } ]}
+                name='name'>
                 <Input.TextArea
                     name='name'
                     showCount
@@ -46,7 +77,9 @@ export const EditMovie = () => {
                     maxLength={130}/>
             </FormItem>
 
-            <FormItem label='Описание' name='description'>
+            <FormItem
+                label='Описание'
+                name='description'>
                 <Input.TextArea
                     name='description'
                     placeholder='сааабтайтз бай диматорзок'

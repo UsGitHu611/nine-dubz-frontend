@@ -1,6 +1,6 @@
 import {TableMovies} from "@modules/studioPanel/components/tableListMovies/TableMovies.jsx";
 import {Button, ConfigProvider, Flex, Modal, Steps} from "antd";
-import {CloseOutlined, DeleteOutlined, PlusOutlined, WarningOutlined} from "@ant-design/icons";
+import {CloseOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import {DragAndDrop} from "@modules/studioPanel/components/step-one/DragAndDrop.jsx";
 import {EditMovie} from "@modules/studioPanel/components/step-two/EditMovie.jsx";
 import {studioStore} from "@modules/studioPanel/store/store.js";
@@ -43,10 +43,10 @@ export const StudioPanel = () => {
             onOk() {
                 setShowModal(false);
                 document.dispatchEvent(new CustomEvent("wsClose"))
-                setCurrentStep(0)
+                setCurrentStep(0);
             },
             onCancel() {
-                setShowModal(true)
+                setShowModal(true);
             },
         });
     };
@@ -55,7 +55,6 @@ export const StudioPanel = () => {
     const { mutate : deleteAllMovie } = useMutation({
         mutationKey: ['deleteAllMoviesStudio'],
         mutationFn: (allMovies) => deleteAllMovieStudio(allMovies),
-        // onSuccess: studioMoviesInvalidate.invalidateQueries({ queryKey: ['studioMovies'] })
     })
 
     const deleteAllMovies = (allMovies) => {
@@ -65,11 +64,15 @@ export const StudioPanel = () => {
         deleteAllMovie(allMovies);
     }
 
-    console.log(allMovies)
+
     return (
-        <Flex gap={18} className='pt-[100px]' align='end' vertical>
+        <Flex gap={18} className='pt-[30px]' align='end' vertical>
             <Flex align='center' gap={6}>
-                <Button onClick={() => deleteAllMovies(allMovies)} shape='circle' size='large' icon={<DeleteOutlined style={{ fontSize: "20px"}}/>}/>
+                <Button
+                    onClick={() => deleteAllMovies(allMovies)}
+                    shape='circle'
+                    size='large'
+                    icon={<DeleteOutlined style={{ fontSize: "20px"}}/>}/>
                 <Button onClick={setShowModal} className='max-w-[150px]' size='large' icon={<PlusOutlined />}>
                     Добавить
                 </Button>
@@ -85,16 +88,14 @@ export const StudioPanel = () => {
                 }
             }}>
                 <Modal
-                        destroyOnClose
                         width={900}
-                        onCancel={() => setShowModal(false)}
                         open={showModal}
                         footer={false}
+                        onCancel={step ? showConfirm : () => setShowModal(false)}
                         closeIcon={
-                            <CloseOutlined onClick={showConfirm} className='text-[17px] p-[6px] rounded-[3px]
+                            <CloseOutlined className='text-[17px] p-[6px] rounded-[3px]
                              hover:bg-neutral-700 transition-colors duration-500'/>
                         }>
-
                     <Steps size='small' labelPlacement='horizontal' progressDot current={step} items={[]}/>
                     <div>{ content[step].content }</div>
                 </Modal>

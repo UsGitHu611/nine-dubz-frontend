@@ -9,7 +9,11 @@ export const components = {
         colorPrimaryActive: "rgba(255,255,255,0.1)",
         hoverBorderColor: "rgba(255,255,255,0.1)",
         colorTextPlaceholder: "rgba(229 231 235, .7)",
-        colorText: "white"
+        colorText: "white",
+        activeShadow: "none"
+    },
+    List : {
+        itemPadding: "10px 8px"
     },
     Button: {
         colorBgContainer: "rgba(255,255,255,0.05)",
@@ -64,8 +68,8 @@ export const components = {
     },
     Collapse: {
         headerBg: "rgba(255,255,255,0.20)",
-        headerPadding: "20px, 20px",
         contentBg: "rgb(229 231 235 / 70)",
+        padding: "10px 10px",
         paddingSM: "12px 8px",
         colorText: "rgb(229 231 235)",
         colorTextHeading: "rgb(229 231 235)",

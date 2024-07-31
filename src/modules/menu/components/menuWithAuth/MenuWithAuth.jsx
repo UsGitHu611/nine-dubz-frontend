@@ -3,13 +3,15 @@ import { Logo } from "@ui/logo/Logo"
 import { LogoutOutlined } from "@ant-design/icons";
 import { useTranslate } from "@modules/menu/hook/useTranslate"
 import { Link } from "react-router-dom"
-import { useRegister } from "@modules/registrationForm/hook/useRegister";
+import {useLogout} from "@modules/menu/hook/useLogout.js";
+import {useCheckAuth} from "@modules/registrationForm/hook/useCheckAuth.js";
 
 export const MenuWithAuth = () => {
     const { t, translation } = useTranslate();
-    const { userInfo } = useRegister();
+    const logout= useLogout();
+    const {userInfo} = useCheckAuth();
 
-    const pathImageUser = userInfo?.picture?.path;
+    const pathImageUser = userInfo?.picture?.name;
     const firstLetterUser = userInfo?.name?.at(0)?.toUpperCase();
 
     const menuItemsWithAuth = [
@@ -47,7 +49,7 @@ export const MenuWithAuth = () => {
                     ]
                 },
                 {
-                    label: <Link to='/'>{ t("logout") }</Link>,
+                    label: <Link to='/' onClick={logout.mutate}>{ t("logout") }</Link>,
                     icon: <LogoutOutlined />,
                     key: "Logout"
                 }

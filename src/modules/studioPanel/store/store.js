@@ -20,6 +20,7 @@ export const studioStore = create((set, get) => ({
     isConnected: false,
     isLoadFile: false,
     showModal : false,
+    hasPermission: true,
 
     setCurrentStep: (curr) => set({step: curr}),
     setIsLoadFile: (bool) => set({isLoadFile: bool}),
@@ -42,7 +43,7 @@ export const studioStore = create((set, get) => ({
     createMovie : async (action) => {
         try {
             const file = action.file;
-            const response = await fetch("http://localhost:25565/api/movie/user",{
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/user`,{
                 method: "POST",
                 credentials: "include",
                 withCredentials: true
@@ -69,7 +70,7 @@ export const studioStore = create((set, get) => ({
 
     createMovieInfo : async (formData) => {
         try {
-            const response = await fetch(`http://localhost:25565/api/movie/user/${get().fileData.movieCode}`, {
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/user/${get().fileData.movieCode}`, {
                 method: "POST",
                 credentials: "include",
                 body: formData
@@ -83,9 +84,12 @@ export const studioStore = create((set, get) => ({
 
     getMoviesStudio: async () => {
         try {
-            const response = await fetch('http://localhost:25565/api/movie/user',{
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/user`,{
                 credentials: "include"
             })
+            if(response.status === 403){
+                set({ hasPermission: false })
+            }
             return await response.json();
         }catch (e) {
             console.log(e.message)
@@ -94,7 +98,7 @@ export const studioStore = create((set, get) => ({
 
     updateMovieStatus: async (option) => {
         try {
-            const response = await fetch('http://localhost:25565/api/movie/user/multiple/status',{
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/user/multiple/status`,{
                 method: "POST",
                 credentials: "include",
                 body: JSON.stringify({
@@ -108,11 +112,25 @@ export const studioStore = create((set, get) => ({
         }
     },
 
+    updateMovieInfo : async ({formData, movieCode}) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/user/${movieCode}`, {
+                method: "POST",
+                credentials: "include",
+                body: formData
+            });
+            const resultSuccess = await response.json();
+            return resultSuccess;
+        }catch (e) {
+            console.log(e.message)
+        }
+    },
+
     deleteMovieStudio: async (code) => {
         try {
-            const response = await fetch(`http://localhost:25565/api/movie/user/${code}`,{
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/user/${code}`,{
                 method: "DELETE",
-                credentials: "include"
+                credentials: "include",
             })
             return await response.json();
         }catch (e) {
@@ -122,12 +140,9 @@ export const studioStore = create((set, get) => ({
 
     deleteAllMovieStudio: async (movies) => {
         try {
-            const response = await fetch('http://localhost:25565/api/movie/user/multiple',{
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/user/multiple`,{
                 method: "DELETE",
                 credentials: "include",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
                 body: JSON.stringify(movies)
             })
             // return await response.json();

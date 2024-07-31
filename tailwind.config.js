@@ -13,7 +13,11 @@ export default {
         'movie-card': "rgb(255 255 255 / 0.1)",
         'interactive': "rgb(255 255 255 / 5%)"
       },
+      gridTemplateColumns: {
+        'grid-with-button': 'auto 1fr'
+      }
     },
+
   },
   plugins: [
     require('tailwindcss-animate'),

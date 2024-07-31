@@ -14,13 +14,15 @@ export const useRegistrationStore = create((set, get) => ({
         name: '',
         email: '',
     },
+
+    setAuth : (bool) => set({isAuth : bool}),
     changeLogin : (value) => set(state => ({
         formData: {...state, login: value}
     })),
 
     checkUniqueLogin : async(signal) => {
         try{
-            const response = await fetch(`http://localhost:25565/api/user/check-by-name?userName=${get().formData.login}`,{ signal });
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/user/check-by-name?userName=${get().formData.login}`,{ signal });
             const data = await response.json();
             set({ isUnique: data.isUserExists });
         }catch(e){
@@ -29,15 +31,15 @@ export const useRegistrationStore = create((set, get) => ({
     },
 
     register : async(formData) => {
+
         try{
-            const response = await fetch('http://localhost:25565/api/authorize/inner/register',
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/authorize/inner/register`,
                 {
                     method: "POST",
                     body: JSON.stringify(formData)
                 }
             );
-            const data = await response.json();
-            return data.userId;
+            return await response.json();
         }catch(e){
             console.log(e.message);
         }
@@ -45,7 +47,7 @@ export const useRegistrationStore = create((set, get) => ({
 
     getUrlGoogle : async() => {
         try{
-            const response = await fetch("http://localhost:25565/api/authorize/google/get-url");
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/authorize/google/get-url`);
             const data = await response.json();
             set({ googleUrl: data.url });
         }catch(e){
@@ -55,7 +57,7 @@ export const useRegistrationStore = create((set, get) => ({
 
     getUserInfo : async() => {
         try{
-            const response = await fetch("http://localhost:25565/api/user/get-short", {
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/user/get-short`, {
                 credentials: "include"
               });
             const data = await response.json();
@@ -63,6 +65,7 @@ export const useRegistrationStore = create((set, get) => ({
             if(response.ok){
                 set({ isAuth: true })
             }
+            return data;
         }catch(e){
             console.log(e.message);
         }

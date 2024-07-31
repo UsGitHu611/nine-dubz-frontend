@@ -1,5 +1,4 @@
 import {TimeSlider, VolumeSlider} from '@vidstack/react';
-import JokerFilm from "@/assets/dub.mp4";
 
 export function Volume() {
     return (

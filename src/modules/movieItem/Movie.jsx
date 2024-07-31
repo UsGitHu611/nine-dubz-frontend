@@ -4,7 +4,8 @@ import {Preview} from "@modules/movieItem/components/preview/Preview.jsx";
 
 
 export const Movie = ({movie}) => {
-
+    //38 44 51
+    // border-rad 8px
     return (
 
         <Link to={`/movie/${movie.code}`}>
@@ -12,13 +13,13 @@ export const Movie = ({movie}) => {
                 styles={{ cover: { borderRadius: "9px" }}}
                 className='bg-transparent border-transparent'
                 size='small'
-                cover={<Preview preview={movie.preview} defaultPreview={movie.defaultPreview}/>}>
+                cover={<Preview preview={movie?.preview} defaultPreview={movie?.defaultPreview}/>}>
                 <Card.Meta
                     avatar={<Avatar
                     size='large'
-                    src='https://sun136-1.userapi.com/impg/aOxCr-t_kABfgOHNlcXL-4Siw_L_PJ3viOG8Yw/Tz2MeakaZ6Y.jpg?size=1082x1080&quality=95&sign=185483c6bd1fc2874df61eb8fb63af73&type=album'/>}
+                    src={`${import.meta.env.VITE_DEV_URL}/api/file/${movie.user.picture?.name}`}/>}
                     title={<h2 className='text-gray-200 text-lg'>{movie.name}</h2>}
-                    description={<p className='text-gray-200'>Роман Миллер</p>}
+                    description={<p className='text-gray-200'>{movie.user.name}</p>}
                 />
             </Card>
         </Link>

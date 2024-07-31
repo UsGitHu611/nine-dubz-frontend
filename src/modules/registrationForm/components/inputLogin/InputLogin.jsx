@@ -17,8 +17,9 @@ export const InputLogin = () => {
 
     return (
         <Form.Item 
-                className='text-gray-200' 
-                validateStatus={isUnique && "error"}
+                className='text-gray-200'
+                hasFeedback
+                validateStatus={isUnique ? "error" : "success"}
                 help={isUnique && "Пользователь с таким именем уже существует"}
                 label='Login' 
                 name='name' 

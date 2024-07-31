@@ -1,10 +1,9 @@
 import {Col, Row} from "antd";
 import {Movie} from "@modules/movieItem/Movie.jsx";
-import {memo} from "react";
 import {useGetMovies} from "@modules/moviesList/hook/useGetMovies.js";
 import {PacmanLoader} from "react-spinners";
 
-export const MoviesList = memo(() => {
+export const MoviesList = () => {
     const {movies, isError, isLoading} = useGetMovies();
 
     return (
@@ -13,9 +12,9 @@ export const MoviesList = memo(() => {
             { isError && <h1 className='text-[red]'>Error</h1> }
             { isLoading
                 ? <PacmanLoader color='white'/>
-                : <Row className='mt-[50px]' gutter={[19,19]}>
+                : <Row className='my-[50px]' gutter={[25,20]} >
                     { movies.map((movie) => (
-                        <Col key={movie.code} span={6}>
+                        <Col className='p-2 rounded-[8px] hover:scale-105 hover:bg-[#262c33] transition' key={movie.code} span={6}>
                             <Movie movie={movie}/>
                         </Col>
                     )) }
@@ -23,4 +22,4 @@ export const MoviesList = memo(() => {
             }
         </div>
     )
-})
+}
