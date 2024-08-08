@@ -30,9 +30,9 @@ export const useUploadFile = () => {
     );
 
     let blob;
-    let reader = new FileReader();
     let filePos = 0;
     let chunk = 1024 * 1024;
+    let reader = new FileReader();
 
     const readBlob = () => {
         let start = filePos;
@@ -56,7 +56,7 @@ export const useUploadFile = () => {
     useEffect(()=> {
 
         if(isConnected){
-            const ws = new WebSocket("ws://localhost:25565/api/movie/user/upload");
+            const ws = new WebSocket(`${import.meta.env.VITE_DEV_WS_URL}/api/movie/user/upload`);
             ws.binaryType = "arraybuffer";
 
             document.addEventListener("wsClose", () => ws.close())

@@ -8,7 +8,7 @@ import { rulesEmail, rulesPassword, tooltipRulesPassword } from "./configForm"
 import { InputLogin } from "./components/inputLogin/InputLogin";
 
 
-export const Registration = () => {
+const Registration = () => {
     const [form] = Form.useForm();
     const { handleRegister, message } = useRegister();
     const googleUrl = useGetUrlGoogle();
@@ -38,7 +38,7 @@ export const Registration = () => {
                 <Input size='large' prefix={<MailOutlined/>}/>
             </Form.Item>
 
-            <Form.Item className='text-gray-200' label='Password' name='password'>
+            <Form.Item className='text-gray-200' label='Password' name='password' rules={[rulesPassword]}>
                 <Input size='large' prefix={<LockOutlined/>} suffix={
                     <Tooltip placement='right' title={
                         <ListRules listRiles={tooltipRulesPassword} field='Пароль'/>
@@ -65,4 +65,6 @@ export const Registration = () => {
         </Form>
     );
 }
+
+export default Registration;
 

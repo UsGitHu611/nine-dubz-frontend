@@ -5,7 +5,8 @@ export const useGetMovies = () => {
     const getMoviesList = storeMovies(state => state.getMovies);
     const {data : movies, isError, isLoading, isSuccess} = useQuery({
         queryKey: ['getMovieList'],
-        queryFn: getMoviesList
+        queryFn: getMoviesList,
+
     })
     return {
         movies, isError, isLoading, isSuccess

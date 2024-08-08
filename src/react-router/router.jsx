@@ -1,13 +1,12 @@
 import { createBrowserRouter, defer } from "react-router-dom";
 import { Main } from "@pages/main/Main.jsx";
 import { Layout } from "@components/layout/Layout.jsx";
-import { SignUp } from "@pages/signUp/SignUp";
-import { SignIn } from "@pages/signIn/SignIn";
+import  SignUp  from "@pages/signUp/SignUp";
+import  SignIn  from "@pages/signIn/SignIn";
 import {Movie} from "@pages/movie/Movie.jsx";
 import {NotFound} from "@pages/notFound/NotFound.jsx";
 import {Studio} from "@pages/studio/Studio.jsx";
 import {EditMovie} from "@pages/editMovie/EditMovie.jsx";
-
 
 export const router = createBrowserRouter([
     {

@@ -5,6 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
+    screens : {
+      'laptop' : { max : '1230px' },
+      'lg-mobile': { min : '625px', max : '768px' },
+      'md-mobile': { max : '625px' },
+      'sm-mobile': { max : '325px' },
+    },
     extend: {
       colors: {
         'media-brand': 'rgb(var(--media-brand) / <alpha-value>)',
@@ -30,7 +36,6 @@ export default {
 }
 
 function customVariants({ addVariant, matchVariant }) {
-  // Strict version of `.group` to help with nesting.
   matchVariant('parent-data', (value) => `.parent[data-${value}] > &`);
 
   addVariant('hocus', ['&:hover', '&:focus-visible']);

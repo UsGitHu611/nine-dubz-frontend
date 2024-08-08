@@ -64,7 +64,8 @@ export const EditMovieDetail = () => {
                                 className='pt-5 w-[700px]'
                                 form={form}
                                 onLoad={() => setPrevPreview(r?.preview?.name)}
-                                onFinish={(d) => onFinish(d, r?.code)} layout='vertical'>
+                                onFinish={(d) => onFinish(d, r?.code)}
+                                layout='vertical'>
 
                                 <FormItem label='Название' required name='name'>
                                     <Input.TextArea

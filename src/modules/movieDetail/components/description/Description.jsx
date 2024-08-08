@@ -18,10 +18,10 @@ export const Description = ({ description, createdAt }) => {
                 {
                     showTruncate ? <p className='truncate ...'>
                         { description }
-                    </p> : ""
+                    </p> : <></>
                 }
             </div>,
-            children: <p>{ description }</p>,
+            children: <p className='break-all'>{ description }</p>,
         }
     ];
 

@@ -1,13 +1,15 @@
-import {Flex} from "antd";
-import {Login} from "@modules/login/Login.jsx";
+import {lazy, Suspense} from "react";
 
-export const SignIn = () => {
+const Login = lazy(() => import('@modules/login/Login.jsx'))
+
+const SignIn = () => {
     return (
-        <section className='bg-container'>
-            <Flex justify='center'>
+        <Suspense fallback={<small>ahahahaa</small>}>
+            <section className='bg-container min-h-[calc(100vh_-_170px)] flex justify-center items-center'>
                 <Login/>
-            </Flex>
-        </section>
+            </section>
+        </Suspense>
     );
 }
 
+export default SignIn;

@@ -59,7 +59,7 @@ export const useRegistrationStore = create((set, get) => ({
         try{
             const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/user/get-short`, {
                 credentials: "include"
-              });
+            });
             const data = await response.json();
             set({ userInfo: data });
             if(response.ok){

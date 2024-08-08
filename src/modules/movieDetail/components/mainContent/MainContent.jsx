@@ -1,38 +1,41 @@
 import {PlayerVideo} from "@modules/player/PlayerVideo.jsx";
 import {CommentForm} from "@modules/movieDetail/components/commentForm/CommentForm.jsx";
-import {InteractivePanel} from "@modules/movieDetail/components/interactivePanel/InteractivePanel.jsx";
 import {Description} from "@modules/movieDetail/components/description/Description.jsx";
-import {CommentList} from "@modules/movieDetail/components/commentList/CommentList.jsx";
+import {Await, useLoaderData} from "react-router-dom";
+import {lazy, Suspense} from "react";
+import {InteractivePanel} from "@modules/movieDetail/components/interactivePanel/InteractivePanel.jsx";
 
-export const MainContent = ({ result }) => {
-    const {
-        name,
-        code,
-        webVtt,
-        description,
-        createdAt,
-        preview,
-        defaultPreview } = result;
+const CommentList = lazy(()=> import('@modules/movieDetail/components/commentList/CommentList.jsx'))
 
-// /api/comment/{movieCode}/{commentId} -
-// - GET - получить дальнейшие ответы на конкретнй ответ через пагинацию, в ответ придет один объект коммента и так же будут вложены чайлды, как сверху писал
+export const MainContent = () => {
+    const { response } = useLoaderData();
 
     return (
-        <div className='flex flex-col gap-5'>
-            <PlayerVideo
-                defaultPreview={defaultPreview}
-                preview={preview}
-                videoUrl={code}
-                vtt={webVtt?.name}/>
-            <h2 className='text-gray-200 text-4xl'>
-                { name }
-            </h2>
-            <InteractivePanel/>
-            <Description
-                createdAt={createdAt}
-                description={description}/>
-            <CommentForm code={code}/>
-            <CommentList code={code}/>
-        </div>
+        <Suspense fallback={<h3>Загрузка</h3>}>
+            <Await resolve={response}>
+                { ({defaultPreview, preview, code, webVtt, name, createdAt, description, video360, video480, video720, videoShakal, video, user}) => (
+                    <div className='flex flex-col gap-5'>
+                        <PlayerVideo
+                            defaultPreview={defaultPreview}
+                            preview={preview}
+                            code={code}
+                            video={video}
+                            video360={video360}
+                            video480={video480}
+                            video720={video720}
+                            videoShakal={videoShakal}
+                            vtt={webVtt?.name}/>
+                        <h2 className='text-gray-200 text-4xl'>{name}</h2>
+                        <InteractivePanel user={user}/>
+                        <Description
+                            createdAt={createdAt}
+                            description={description}/>
+                        <CommentForm code={code}/>
+                        <CommentList code={code}/>
+                    </div>
+                )
+                }
+            </Await>
+        </Suspense>
     )
 }

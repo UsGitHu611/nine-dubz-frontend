@@ -2,58 +2,44 @@ import {
     MediaPlayer,
     MediaProvider,
     Poster,
-    useMediaStore
 } from '@vidstack/react';
 import { VideoLayout } from './components/layout/VideoLayout.jsx';
 import '@vidstack/react/player/styles/base.css';
 import {useRef} from 'react';
 
-export const PlayerVideo = ({ videoUrl, vtt, preview, defaultPreview }) => {
+export const PlayerVideo = ({ code, vtt, preview, defaultPreview, video360, video480, video720, videoShakal, video }) => {
     const player = useRef(null);
-    const { qualities, quality, autoQuality, canSetQuality } = useMediaStore(player);
+    const suckQuality = [video360, video480, video720, videoShakal];
 
     return (
         <MediaPlayer
-            className="w-full aspect-video bg-slate-900 text-white font-sans overflow-hidden rounded-md ring-media-focus data-[focus]:ring-4"
+            className='w-full aspect-video bg-slate-950 text-white
+            font-sans overflow-hidden rounded-md ring-media-focus
+            data-[focus]:ring-4'
             title="Sprite Fight"
             crossOrigin
             playsInline
             ref={player}
             src={[
                 {
-                    id: 1,
-                    src: `${import.meta.env.VITE_DEV_URL}/api/movie/stream/${videoUrl}`,
+                    src: `${import.meta.env.VITE_DEV_URL}/api/movie/stream/${code}`,
                     type: `video/webm`,
-                    width: 1920,
-                    height: 1080,
+                    width: video?.width,
+                    height: video?.height,
                 },
-                // {
-                //     id: 2,
-                //     src: `${import.meta.env.VITE_DEV_URL}/api/movie/stream/${videoUrl}?q=720`,
-                //     type: `video/webm`,
-                //     width: 1280,
-                //     height: 720,
-                // },
-                // {
-                //     id: 3,
-                //     src: `${import.meta.env.VITE_DEV_URL}/api/movie/stream/${videoUrl}?q=480`,
-                //     type: `video/webm`,
-                //     width: 853,
-                //     height: 480,
-                // },
-                // {
-                //     id: 4,
-                //     src: `${import.meta.env.VITE_DEV_URL}/api/movie/stream/${videoUrl}?q=360`,
-                //     type: `video/webm`,
-                //
-                // },
-                {
-                    id: 5,
-                    src: `${import.meta.env.VITE_DEV_URL}/api/movie/stream/${videoUrl}?q=0`,
-                    type: `video/webm`,
-                    width: 320,
-                    height: 240
-                }
+                ...suckQuality.reduce((previousValue, currentValue) => {
+                    return currentValue
+                        ? [
+                            ...previousValue,
+                            {
+                                src: `${import.meta.env.VITE_DEV_URL}/api/movie/stream/${code}?q=${currentValue.height}`,
+                                type: `video/webm`,
+                                width: currentValue.width,
+                                height: currentValue.height
+                            }
+                        ]
+                        : previousValue
+                },[])
             ]}
         >
 

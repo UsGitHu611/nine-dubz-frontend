@@ -1,12 +1,10 @@
-import { create } from 'zustand'
+import {create} from 'zustand'
 
-export const storeMovies = create((set) => ({
-
+export const storeMovies = create(() => ({
     getMovies : async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/`);
-            const data = await response.json();
-            return data;
+            return await response.json();
         }catch (e) {
             console.log(e.message)
         }

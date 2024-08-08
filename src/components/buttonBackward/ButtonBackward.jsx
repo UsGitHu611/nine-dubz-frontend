@@ -6,7 +6,10 @@ export const ButtonBackward = () => {
 
     return (
         <>
-            <div className='transition-opacity absolute left-0 top-0 h-full opacity-0 hover:first:opacity-100 hover:text-opacity-100 bg-gradient-to-r from-gray-800 w-[400px]' role='button'
+            <div className='transition-opacity absolute left-0 top-0 h-full
+            opacity-0 hover:first:opacity-100 hover:text-opacity-100 bg-gradient-to-r
+            from-gray-800 w-[400px]'
+                 role='button'
                  onClick={() => navigate(-1)}>
                 <div className='h-full relative'></div>
             </div>

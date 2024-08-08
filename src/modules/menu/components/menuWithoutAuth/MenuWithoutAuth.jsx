@@ -4,53 +4,41 @@ import { Link } from "react-router-dom"
 import { useTranslate } from "@modules/menu/hook/useTranslate"
 import { UserOutlined } from "@ant-design/icons";
 
-export const MenuWithoutAuth = () => {
+const MenuWithoutAuth = () => {
     const { t, translation } = useTranslate();
 
-    const menuItemsWithoutAuth = [
-        {
-            key: "Movies",
-            icon : <Logo/>
-        },
-        {
-            key: "reg",
-            icon : <Avatar className='bg-movie-card'><UserOutlined /></Avatar>,
-            children : [
-                {
-                    label: <Link to='/signin'>{ t('login') }</Link>,
-                    key: "SignIn"
-                },
-                {
-                    label: <Link to='/signup'>{ t("registration") }</Link>,
-                    key: "SignUp"
-                },
-                {
-                    label: t("language") ,
-                    key: "Language",
-                    children: [
-                        {
-                            label: <p onClick={() => translation('en')}>
-                                        English
-                                    </p>,
-                            key: "en"
-                        },
-                        {
-                            label: <p onClick={() => translation('ru')}>
-                                        Русский
-                                    </p>,
-                            key: "ru"
-                        },
-                    ]
-                }
-            ]
-        }
-    ];
-
     return (
-        <Menu
-            className='bg-transparent justify-between items-center'
-            items={menuItemsWithoutAuth}
-            mode='horizontal'
-            key='menuWithoutAuth'/>
+        <div className='flex justify-between items-center'>
+            <Logo/>
+            <Menu
+                className='bg-transparent'
+                mode='horizontal'
+                key='menuWithoutAuth'>
+
+                <Menu.SubMenu key='submenu' style={{lineHeight: "19px"}} icon={
+                    <Avatar className='rounded-full bg-container p-2' src={
+                        <UserOutlined style={{ fontSize: "23px" }}/>
+                    }/>
+                }>
+                    <Menu.Item key='login'>
+                        <Link to='/signin'>{ t('login') }</Link>
+                    </Menu.Item>
+                    <Menu.Item key='registration'>
+                        <Link to='/signup'>{ t("registration") }</Link>
+                    </Menu.Item>
+
+                    <Menu.SubMenu key='language' title={t("language") }>
+                        <Menu.Item key='language-en'>
+                            <p onClick={() => translation('en')}>English</p>
+                        </Menu.Item>
+                        <Menu.Item key='language-ru'>
+                            <p onClick={() => translation('ru')}>Русский</p>
+                        </Menu.Item>
+                    </Menu.SubMenu>
+                </Menu.SubMenu>
+            </Menu>
+        </div>
     );
 }
+
+export default MenuWithoutAuth;

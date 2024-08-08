@@ -66,10 +66,17 @@ export const TableMovies = () => {
     ];
 
     const dataMovies = () => {
-        return moviesStudio?.map(({isPublished, name, code, createdAt, preview, defaultPreview, video}) => ({
+        return moviesStudio?.map(({isPublished, name, code, createdAt, preview, defaultPreview, video, defaultPreviewWebp, previewWebp}) => ({
             key: code,
-            movie: <Preview video={video} defaultPreview={defaultPreview} preview={preview}/>,
-            name: <NavLink className='block hover:underline hover:text-gray-200 max-w-[482px]' to={`/studio/edit/${code}`}>{name}</NavLink>,
+            movie: <Preview
+                defaultPreviewWebp={defaultPreviewWebp}
+                previewWebp={previewWebp}
+                video={video}
+                defaultPreview={defaultPreview}
+                preview={preview}/>,
+            name: <NavLink
+                className='block hover:underline hover:text-gray-200 max-w-[482px]'
+                to={`/studio/edit/${code}`}>{name}</NavLink>,
             date : new Date(createdAt).toLocaleDateString(),
             access: <Select
                 showArrow={false}

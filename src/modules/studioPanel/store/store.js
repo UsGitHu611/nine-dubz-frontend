@@ -28,17 +28,6 @@ export const studioStore = create((set, get) => ({
     setIsConnected: (bool) => set({ isConnected: bool }),
     setAllMovies: (movies) => set({ allMovies: [ ...movies ] }),
     setFilePos: (pos) => set(prev =>({ filePos: prev.filePos + pos })),
-    setMovieData : (data) => set((state) => {
-        const { file } = data.file;
-        return {
-            movieData : {
-                ...state.movieData,
-                name: data.name,
-                description: data.description,
-                preview : file
-            }
-        }
-    }),
 
     createMovie : async (action) => {
         try {
@@ -75,8 +64,7 @@ export const studioStore = create((set, get) => ({
                 credentials: "include",
                 body: formData
             });
-            const resultSuccess = await response.json();
-            return resultSuccess;
+            return await response.json();
         }catch (e) {
             console.log(e.message)
         }
@@ -119,8 +107,7 @@ export const studioStore = create((set, get) => ({
                 credentials: "include",
                 body: formData
             });
-            const resultSuccess = await response.json();
-            return resultSuccess;
+            return await response.json();
         }catch (e) {
             console.log(e.message)
         }
@@ -145,7 +132,7 @@ export const studioStore = create((set, get) => ({
                 credentials: "include",
                 body: JSON.stringify(movies)
             })
-            // return await response.json();
+            return await response.json();
         }catch (e) {
             console.log(e.message)
         }

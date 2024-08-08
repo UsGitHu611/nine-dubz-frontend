@@ -14,5 +14,14 @@ export default defineConfig({
       "@modules": path.resolve(__dirname, "./src/", "modules"),
       "@pages": path.resolve(__dirname, "./src/", "pages")
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: `assets/[name].js`,
+        chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`
+      }
+    }
   }
 })

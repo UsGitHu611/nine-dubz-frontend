@@ -1,10 +1,15 @@
-import { Registration } from "@modules/registrationForm/Registration";
+import {lazy, Suspense} from "react";
 
-export const SignUp = () => {
+const Registration = lazy(()=> import('@modules/registrationForm/Registration'));
+
+const SignUp = () => {
     return (
-        <section className='bg-container min-h-[calc(100vh_-_170px)] flex justify-center '>
-            <Registration/>
-        </section>
+        <Suspense fallback={<small>ahahaahha</small>}>
+            <section className='bg-container min-h-[calc(100vh_-_170px)] flex justify-center items-center'>
+                <Registration/>
+            </section>
+        </Suspense>
     );
 }
 
+export default SignUp;

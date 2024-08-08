@@ -5,7 +5,7 @@ import {CommentOutlined} from "@ant-design/icons";
 import {timeCreated} from "@/helper/timeCreated.js";
 import {CommentItem} from "@modules/movieDetail/components/commentItem/CommentItem.jsx";
 
-export const CommentList = ({ code }) => {
+const CommentList = ({ code }) => {
     const getCommentsReq = movieDetailStore(state => state.getComments);
     const { data: commentList, isLoading } = useQuery({
         queryKey: ['getComments'],
@@ -24,18 +24,26 @@ export const CommentList = ({ code }) => {
                         description={<p className='text-gray-200/40 max-w-[400px] mx-auto text-[17px]'>Будьте первым кто оставит комментарий!</p>}/>
                 )}>
                     <List
-                        dataSource={commentList?.comments?.map(({user, text, createdAt, id}) => ({
+                        dataSource={commentList?.comments?.map(({user, text, createdAt, id, subCommentsCount, subComments}) => ({
+                            userId : user?.id,
+                            subComments,
                             commentId : id,
+                            subCommentsCount,
                             title: user?.name,
+                            userPicture : user.picture?.name,
                             description: text,
-                            createdAt : timeCreated(createdAt)
+                            createdAt : timeCreated(createdAt),
                         }))}
-                        renderItem={({title, description, createdAt, commentId}) => (
+                        renderItem={({title, description, createdAt, commentId, subCommentsCount, subComments, userId, userPicture}) => (
                             <CommentItem
                                 code={code}
                                 title={title}
+                                userId={userId}
                                 commentId={commentId}
+                                userPicture={userPicture}
+                                subComments={subComments}
                                 description={description}
+                                subCommentsCount={subCommentsCount}
                                 createdAt={createdAt}/>
                         )}/>
                 </ConfigProvider>
@@ -43,3 +51,5 @@ export const CommentList = ({ code }) => {
         </>
     )
 }
+
+export default CommentList

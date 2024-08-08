@@ -1,5 +1,5 @@
-import { MenuWithAuth } from "./components/menuWithAuth/MenuWithAuth";
-import { MenuWithoutAuth } from "./components/menuWithoutAuth/MenuWithoutAuth";
+import MenuWithAuth from "./components/menuWithAuth/MenuWithAuth";
+import MenuWithoutAuth from "./components/menuWithoutAuth/MenuWithoutAuth";
 import {useCheckAuth} from "@modules/registrationForm/hook/useCheckAuth.js";
 
 

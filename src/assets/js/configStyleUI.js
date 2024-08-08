@@ -2,6 +2,9 @@ export const components = {
     Typography: {
         colorText: "rgb(229 231 235)"
     },
+    Card: {
+        paddingLG: 10
+    },
     Input: {
         colorBgContainer: "rgba(255,255,255,0.05)",
         colorBorder: "rgba(255,255,255,0.1)",
@@ -10,7 +13,8 @@ export const components = {
         hoverBorderColor: "rgba(255,255,255,0.1)",
         colorTextPlaceholder: "rgba(229 231 235, .7)",
         colorText: "white",
-        activeShadow: "none"
+        activeShadow: "none",
+        colorTextDescription: "rgba(255,255,255,0.45)"
     },
     List : {
         itemPadding: "10px 8px"
@@ -22,7 +26,9 @@ export const components = {
         colorBorder: "rgba(255,255,255,0.1)",
         defaultActiveColor: "rgba(229 231 235, .7)",
         defaultActiveBorderColor: "rgba(255,255,255,0.1)",
-        colorText: "white"
+        defaultHoverBg: "#9e9e9e",
+        textHoverBg: "rgba(255,255,255,0.25)",
+        colorText: "white",
     },
     Descriptions: {
         colorText: "white",
@@ -38,7 +44,12 @@ export const components = {
         popupBg: "#292b33",
         colorText: "rgb(229 231 235)",
         itemSelectedBg: "transparent",
-        itemSelectedColor: "inherit"
+        itemSelectedColor: "inherit",
+        horizontalItemSelectedColor: "transparent",
+        activeBarHeight: 0,
+        iconMarginInlineEnd: 0,
+        horizontalLineHeight: 19,
+
     },
     Form: {
         labelColor: "#e5e7eb",
@@ -69,8 +80,6 @@ export const components = {
     Collapse: {
         headerBg: "rgba(255,255,255,0.20)",
         contentBg: "rgb(229 231 235 / 70)",
-        padding: "10px 10px",
-        paddingSM: "12px 8px",
         colorText: "rgb(229 231 235)",
         colorTextHeading: "rgb(229 231 235)",
         fontSize: 15,
@@ -83,6 +92,7 @@ export const components = {
     },
     Confirm: {
         colorText: "rgb(229 231 235)",
+        colorBgContainer: "#292a2e"
     },
     Select: {
         colorBgElevated: "#292b33",

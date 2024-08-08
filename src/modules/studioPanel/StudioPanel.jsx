@@ -12,12 +12,13 @@ const content = [
     { content: <EditMovie/> }
 ]
 
-export const StudioPanel = () => {
+const StudioPanel = () => {
     const { confirm } = Modal;
     const {
         step,
         allMovies,
         showModal,
+        setFilePos,
         setShowModal,
         setCurrentStep,
         deleteAllMovieStudio
@@ -26,6 +27,7 @@ export const StudioPanel = () => {
             step: state.step,
             showModal: state.showModal,
             allMovies: state.allMovies,
+            setFilePos: state.setFilePos,
             setShowModal: state.setShowModal,
             setCurrentStep: state.setCurrentStep,
             setAbortConnection: state.setAbortConnection,
@@ -41,9 +43,10 @@ export const StudioPanel = () => {
             okText: 'Отменить загрузку',
             cancelText: 'Закрыть',
             onOk() {
-                setShowModal(false);
-                document.dispatchEvent(new CustomEvent("wsClose"))
+                setFilePos(0);
                 setCurrentStep(0);
+                setShowModal(false);
+                document.dispatchEvent(new CustomEvent("wsClose"));
             },
             onCancel() {
                 setShowModal(true);
@@ -58,9 +61,7 @@ export const StudioPanel = () => {
     })
 
     const deleteAllMovies = (allMovies) => {
-        if(!allMovies.length){
-            return;
-        }
+        if(!allMovies.length) return;
         deleteAllMovie(allMovies);
     }
 
@@ -96,7 +97,12 @@ export const StudioPanel = () => {
                             <CloseOutlined className='text-[17px] p-[6px] rounded-[3px]
                              hover:bg-neutral-700 transition-colors duration-500'/>
                         }>
-                    <Steps size='small' labelPlacement='horizontal' progressDot current={step} items={[]}/>
+                    <Steps
+                        size='small'
+                        labelPlacement='horizontal'
+                        progressDot
+                        current={step}
+                        items={[]}/>
                     <div>{ content[step].content }</div>
                 </Modal>
             </ConfigProvider>
@@ -104,3 +110,5 @@ export const StudioPanel = () => {
         </Flex>
     )
 }
+
+export default StudioPanel;

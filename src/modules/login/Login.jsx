@@ -6,7 +6,7 @@ import {rulesEmail, rulesPassword, tooltipRulesPassword} from "@modules/registra
 import {ListRules} from "@modules/registrationForm/components/listRules/ListRules.jsx";
 import {useLogin} from "@modules/login/hook/useLogin.js";
 
-export const Login = () => {
+const Login = () => {
     const [form] = Form.useForm();
     const googleUrl = useGetUrlGoogle();
     const { signIn, message } = useLogin();
@@ -61,3 +61,5 @@ export const Login = () => {
        </Form>
     )
 }
+
+export default Login;

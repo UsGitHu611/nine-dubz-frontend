@@ -3,7 +3,7 @@ import { Footer } from "@components/footer/Footer.jsx";
 import { Outlet } from "react-router-dom";
 import { Layout as LayoutAntd } from "antd";
 
-const { Content} = LayoutAntd;
+const { Content } = LayoutAntd;
 
 export const Layout = () => {
 

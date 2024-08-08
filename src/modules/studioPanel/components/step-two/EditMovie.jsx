@@ -35,7 +35,7 @@ export const EditMovie = () => {
     const {t} = useTranslate();
 
 
-    const { mutate, data: success } = useMutation({
+    const { mutate } = useMutation({
         mutationKey: ['editMovie'],
         mutationFn: (formData) => createMovieInfo(formData),
         onSuccess : () => {

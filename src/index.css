@@ -7,25 +7,12 @@
     --media-focus: 78 156 246;
 }
 
-html, body{
-    @apply min-h-[100vh]
-}
+html, body{ @apply min-h-[100vh] }
 
-main{
-    @apply flex-1
-}
+main{ @apply flex-1 }
 
-body{
-    @apply bg-gray-900 text-gray-200
-}
+body{ @apply bg-gray-900 text-gray-200 }
 
-:where(.ant-menu-overflow-item) .ant-menu-title-content{
-    @apply hidden
-}
-
-.ant-menu-overflow-item:has(#logo)::after {
-    position: relative;
-}
 
 .ant-input-textarea-show-count:has(#replyPanel) .ant-input-data-count{
     top: 4px;
@@ -33,22 +20,6 @@ body{
 
 .ant-input-textarea-show-count:has(#replyPanel) #replyPanel{
     padding-right: 80px;
-}
-
-:where([class*=css-dev-only-do-not-override]).ant-input-textarea-show-count .ant-input-data-count{
-    color: rgba(240, 248, 255, 0.68);
-}
-
-:where([class*=css-dev-only-do-not-override]).ant-menu::before{
-    position: absolute;
-}
-
-:where([class*=css-dev-only-do-not-override]).ant-upload.ant-upload-drag > .ant-upload.ant-upload-btn{
-    min-height: inherit;
-}
-
-:where([class*=css-dev-only-do-not-override]).ant-upload-wrapper > :where([class*=css-dev-only-do-not-override]).ant-upload.ant-upload-drag{
-    min-height: 500px;
 }
 
 .ant-collapse-header-text{
@@ -65,30 +36,6 @@ body{
     border-color: rgba(255,255,255,0.05);
     color: rgb(229 231 235);
     box-shadow: none;
-}
-
-:where([class*=css-dev-only-do-not-override]).ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover{
-    color: inherit;
-    border-color: inherit;
-    background-color:rgb(229 231 235);
-}
-
-:where([class*=css-dev-only-do-not-override]).ant-btn-text:not(:disabled):not(.ant-btn-disabled):hover{
-    color: inherit;
-    border-color: inherit;
-    background-color:rgb(229 231 235);
-}
-
-:where([class*=css-dev-only-do-not-override]).ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover{
-    color: rgb(229 231 235);
-    border-color: rgba(214,0,12,0.75);
-    background-color:rgba(214,0,12,0.75) ;
-}
-
-
-.ant-card .ant-card-cover img{
-    border-radius: inherit;
-    height: 201px;
 }
 
 .ant-table-row.ant-table-row-level-0 > td:last-child{
@@ -119,8 +66,21 @@ body{
     border-bottom: 1px solid #fff;
 }
 
+.player {
+    container-name: media-player;
+    container-type: inline-size;
+}
 
-
+.ant-skeleton-content {
+    .ant-skeleton-paragraph:first-child li {
+        background-image: linear-gradient(
+                90deg,
+                rgb(75 85 99 / 0.1),
+                rgb(107 114 128 / 0.1),
+                rgb(75 85 99 / 0.1)
+        ) !important;
+    }
+}
 
 
 

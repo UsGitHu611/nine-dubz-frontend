@@ -1,7 +1,9 @@
 import {Flex, Input, Button, ConfigProvider, Avatar, Form} from "antd";
+import {useComment} from "@modules/movieDetail/hook/useComment.js";
 
-export const ReplyPanel = ({ setShowReplyInput, addReply, code, commentId }) => {
+export const ReplyPanel = ({ code, commentId, setShowReplyPanel }) => {
     const [form] = Form.useForm();
+    const { addReply } = useComment();
     const finishHandler = ({ text }) => {
         if(!text) return;
         addReply({code, commentId, text});
@@ -26,7 +28,7 @@ export const ReplyPanel = ({ setShowReplyInput, addReply, code, commentId }) => 
                     </Flex>
                 </Form.Item>
                 <Flex justify='end' gap={5}>
-                    <Button onClick={() => setShowReplyInput(false)}>Отмена</Button>
+                    <Button onClick={() => setShowReplyPanel(false)}>Отмена</Button>
                     <Button htmlType='submit'>Ответить</Button>
                 </Flex>
             </Form>
