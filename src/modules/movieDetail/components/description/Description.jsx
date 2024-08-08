@@ -1,9 +1,9 @@
 import {Collapse} from "antd";
 import {useState} from "react";
-import {timeCreated} from "@/helper/timeCreated.js";
+import {OtherInfoMovie} from "@components/otherInfoMovie/OtherInfoMovie.jsx";
 
 
-export const Description = ({ description, createdAt }) => {
+export const Description = ({ description, createdAt, views }) => {
     const [showTruncate, setShowTruncate] = useState(true);
 
     const removeTruncate = () => {
@@ -14,7 +14,7 @@ export const Description = ({ description, createdAt }) => {
         {
             key: '1',
             label: <div>
-                <p>{ timeCreated(createdAt) }</p>
+                <OtherInfoMovie views={views} createdAt={createdAt}/>
                 {
                     showTruncate ? <p className='truncate ...'>
                         { description }

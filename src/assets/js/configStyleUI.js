@@ -3,7 +3,8 @@ export const components = {
         colorText: "rgb(229 231 235)"
     },
     Card: {
-        paddingLG: 10
+        paddingLG: 10,
+        marginXS: 0
     },
     Input: {
         colorBgContainer: "rgba(255,255,255,0.05)",
