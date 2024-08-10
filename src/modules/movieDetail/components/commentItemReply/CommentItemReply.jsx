@@ -3,7 +3,7 @@ import {ActionPanel} from "@modules/movieDetail/components/actionButtonsPanel/Ac
 import {ReplyPanel} from "@modules/movieDetail/components/replyPanel/ReplyPanel.jsx";
 import {useState} from "react";
 
-export const CommentItemReply = ({title, description, createdAt, subComment, code, userId, parentCommentId, userPicture}) => {
+export const CommentItemReply = ({title, description, createdAt, code, userId, userPicture, parentId}) => {
     const [showReplyPanel, setShowReplyPanel] = useState(false);
 
     return (
@@ -17,7 +17,7 @@ export const CommentItemReply = ({title, description, createdAt, subComment, cod
                         userId={userId}
                         setShowReplyPanel={setShowReplyPanel}
                         code={code}
-                        commentId={subComment}/>
+                        parentId={parentId}/>
                 </Flex>}
                 description={
                     <>
@@ -25,7 +25,7 @@ export const CommentItemReply = ({title, description, createdAt, subComment, cod
                         { showReplyPanel && (
                             <ReplyPanel
                                 code={code}
-                                commentId={parentCommentId}
+                                parentId={parentId}
                                 setShowReplyPanel={setShowReplyPanel}/>
                         ) }
                     </>}

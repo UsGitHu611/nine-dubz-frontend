@@ -3,7 +3,7 @@ import {PlayerVideo} from "@modules/player/PlayerVideo.jsx";
 import {CommentForm} from "@modules/movieDetail/components/commentForm/CommentForm.jsx";
 import {Description} from "@modules/movieDetail/components/description/Description.jsx";
 import {Await, useLoaderData} from "react-router-dom";
-import {InteractivePanel} from "@modules/movieDetail/components/interactivePanel/InteractivePanel.jsx";
+import {Author} from "@modules/movieDetail/components/author/Author.jsx";
 
 const CommentList = lazy(()=> import('@modules/movieDetail/components/commentList/CommentList.jsx'))
 
@@ -20,14 +20,14 @@ export const MainContent = () => {
                             video={video}
                             preview={preview}
                             vtt={webVtt?.name}
-                            video360={video360}
+                            video360={video360}ss
                             video480={video480}
                             video720={video720}
                             videoShakal={videoShakal}
                             defaultPreview={defaultPreview}
                             />
                         <h2 className='text-gray-200 text-4xl'>{name}</h2>
-                        <InteractivePanel user={user}/>
+                        <Author name={user.name} picture={user.picture}/>
                         <Description
                             views={views}
                             createdAt={createdAt}

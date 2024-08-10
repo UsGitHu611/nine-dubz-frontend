@@ -1,12 +1,13 @@
 import {Flex, Input, Button, ConfigProvider, Avatar, Form} from "antd";
 import {useComment} from "@modules/movieDetail/hook/useComment.js";
 
-export const ReplyPanel = ({ code, commentId, setShowReplyPanel }) => {
+export const ReplyPanel = ({ code, parentId, setShowReplyPanel }) => {
     const [form] = Form.useForm();
     const { addReply } = useComment();
+
     const finishHandler = ({ text }) => {
         if(!text) return;
-        addReply({code, commentId, text});
+        addReply({code, parentId, text});
         form.resetFields();
     }
 

@@ -24,9 +24,8 @@ const CommentList = ({ code }) => {
                         description={<p className='text-gray-200/40 max-w-[400px] mx-auto text-[17px]'>Будьте первым кто оставит комментарий!</p>}/>
                 )}>
                     <List
-                        dataSource={commentList?.comments?.map(({user, text, createdAt, id, subCommentsCount, subComments}) => ({
+                        dataSource={commentList?.comments?.map(({user, text, createdAt, id, subCommentsCount}) => ({
                             userId : user?.id,
-                            subComments,
                             commentId : id,
                             subCommentsCount,
                             title: user?.name,
@@ -34,14 +33,13 @@ const CommentList = ({ code }) => {
                             description: text,
                             createdAt : timeCreated(createdAt),
                         }))}
-                        renderItem={({title, description, createdAt, commentId, subCommentsCount, subComments, userId, userPicture}) => (
+                        renderItem={({title, description, createdAt, commentId, subCommentsCount, userId, userPicture}) => (
                             <CommentItem
                                 code={code}
                                 title={title}
                                 userId={userId}
                                 commentId={commentId}
                                 userPicture={userPicture}
-                                subComments={subComments}
                                 description={description}
                                 subCommentsCount={subCommentsCount}
                                 createdAt={createdAt}/>
