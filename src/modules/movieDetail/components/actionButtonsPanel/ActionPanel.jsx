@@ -4,7 +4,7 @@ import {ReplyButton} from "@components/replyButton/ReplyButton.jsx";
 import {useComment} from "@modules/movieDetail/hook/useComment.js";
 import {useRegistrationStore} from "@modules/registrationForm/store/store.js";
 
-export const ActionPanel = ({code, commentId, setShowReplyPanel, userId}) => {
+export const ActionPanel = ({code, commentId, setShowReplyPanel, userId, parentId}) => {
     const getShortId = useRegistrationStore(state => state.userInfo?.id);
     const { deleteComment } = useComment();
 
@@ -22,7 +22,7 @@ export const ActionPanel = ({code, commentId, setShowReplyPanel, userId}) => {
                         size='small'
                         type='text'
                         shape='circle'
-                        onClick={() => deleteComment({code, commentId})}
+                        onClick={() => deleteComment({code, commentId, parentId})}
                         icon={<DeleteOutlined style={{ fontSize:"14px" }}/>}/>
                 )
             }

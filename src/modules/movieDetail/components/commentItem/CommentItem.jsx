@@ -16,11 +16,7 @@ export const CommentItem = ({ description, createdAt, title, code, subCommentsCo
 
     const { isLoading, refetch } = useQuery({
         queryKey: ['getReply', commentId],
-        notifyOnChangeProps: ['data'],
-        queryFn: () => {
-            setOffset(prevState => prevState + 10)
-            return getReplyReq({code, commentId, offset, limit: 10})
-        },
+        queryFn: () => getReplyReq({code, commentId, offset, limit: 10}),
         enabled: !subCommentList[commentId]?.length && !!showReplyList
     });
 
@@ -41,15 +37,16 @@ export const CommentItem = ({ description, createdAt, title, code, subCommentsCo
                 description={
                 <>
                     <p className='text-gray-200 text-[15px] break-all'>{description}</p>
-                    { !!subCommentsCount && (
+                    { (!!subCommentsCount || !!subCommentList[commentId]?.length) && (
                         <ReplyList
-                            parentId={commentId}
+                            code={code}
+                            offset={offset}
                             refetch={refetch}
+                            parentId={commentId}
+                            setOffset={setOffset}
                             isLoading={isLoading}
                             showReplyList={showReplyList}
                             setShowReplyList={setShowReplyList}
-                            setOffset={setOffset}
-                            code={code}
                             subCommentsCount={subCommentsCount}/>
                     )}
                     { showReplyPanel && (

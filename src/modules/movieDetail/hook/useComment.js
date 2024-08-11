@@ -6,6 +6,7 @@ export const useComment = () => {
     const deleteCommentReq = movieDetailStore(state => state.deleteComment);
     const addReplyReq = movieDetailStore(state => state.addReply);
 
+
     const { mutate : addComment } = useMutation({
         mutationKey: ['addComment'],
         mutationFn: (body) => addCommentReq(body)

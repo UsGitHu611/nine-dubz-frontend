@@ -1,8 +1,9 @@
 import {create} from "zustand";
 
-export const movieDetailStore = create((set) => ({
-    commentList: [],
+export const movieDetailStore = create((set, get) => ({
+    commentList: {},
     subCommentList: {},
+    dynamicCountSubComment : 0,
 
     getComments: async (code) => {
         try {
@@ -11,7 +12,14 @@ export const movieDetailStore = create((set) => ({
             });
             const data = await response.json();
             if (response.ok) {
-                set({commentList: [...data?.comments]})
+                set(({
+                    commentList: data?.comments.reduce((prevV, currV) => {
+                        return {
+                            ...prevV,
+                            ['a' + currV.id] : currV
+                        }
+                    }, {})
+                }))
             }
             return data;
         } catch (e) {
@@ -31,10 +39,11 @@ export const movieDetailStore = create((set) => ({
                         ...prev.subCommentList,
                         [commentId] : [
                             ...prev.subCommentList[commentId] || [],
-                            ...data
-                        ],
+                            ...data,
+                        ]
                     }
                 }))
+                set(prev => ({dynamicCountSubComment : prev.dynamicCountSubComment + data?.length}))
             }
             return data;
         } catch (e) {
@@ -49,7 +58,17 @@ export const movieDetailStore = create((set) => ({
                 credentials: "include",
                 body: JSON.stringify({text: comment})
             });
-            return await response.json();
+            const data = await response.json();
+            if(response.ok){
+                const { id } = data;
+                set(prev => ({
+                    commentList : {
+                        ['a' + id] : data,
+                        ...prev.commentList,
+                    }
+                }))
+            }
+            return data;
         } catch (e) {
             console.log(e.message)
         }
@@ -62,19 +81,52 @@ export const movieDetailStore = create((set) => ({
                 credentials: "include",
                 body: JSON.stringify({text})
             });
-            return await response.json();
+            const data = await response.json();
+            set(prev => ({
+                dynamicCountSubComment : prev.dynamicCountSubComment + 1
+            }))
+            if(response.ok){
+                set(prev => ({
+                    subCommentList : {
+                        ...prev.subCommentList,
+                        [parentId] : [
+                            ...prev.subCommentList[parentId] || [],
+                            data
+                        ]
+                    }
+                }))
+            }
+            return data
         } catch (e) {
             console.log(e.message)
         }
     },
 
-    deleteComment: async ({code, commentId}) => {
+    deleteComment: async ({code, commentId, parentId}) => {
         try {
             const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/comment/${code}/${commentId}`, {
                 method: "DELETE",
                 credentials: "include",
             });
-            return await response.json();
+            const data = await response.json();
+            if(response.ok){
+                const delList = get().commentList['a' + commentId] ? 'commentList' : 'subCommentList';
+                if(delList === 'commentList'){
+                    set(prev => {
+                        delete prev.commentList['a' + commentId];
+                        return {
+                            commentList : { ...prev.commentList }
+                        };
+                    })
+                }else {
+                    set(prev => ({
+                        subCommentList : {
+                            [parentId] : prev.subCommentList[parentId].filter(({ id }) => commentId !== id )
+                        }
+                    }))
+                }
+            }
+            return data;
         } catch (e) {
             console.log(e.message)
         }

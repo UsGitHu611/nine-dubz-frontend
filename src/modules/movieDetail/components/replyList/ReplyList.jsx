@@ -3,28 +3,44 @@ import {timeCreated} from "@/helper/timeCreated.js";
 import {CommentItemReply} from "@modules/movieDetail/components/commentItemReply/CommentItemReply.jsx";
 import {movieDetailStore} from "@modules/movieDetail/store/store.js";
 
-
-export const ReplyList = ({ subCommentsCount, code, showReplyList, setShowReplyList, isLoading, refetch, parentId }) => {
+export const ReplyList = (
+    {
+        code,
+        refetch,
+        parentId,
+        isLoading,
+        setOffset,
+        showReplyList,
+        setShowReplyList,
+        subCommentsCount : staticSubCommentCount,
+    }
+) => {
     const subCommentList = movieDetailStore(state => state.subCommentList)[parentId];
+    const dynamicCountSubComment = movieDetailStore(state => state.dynamicCountSubComment);
+
+    const refetchReq = async () => {
+        await setOffset(prev => prev + 10);
+        refetch();
+    }
 
     return (
         <>
             <Button
                 className='my-2 p-3 rounded-[13px]'
                 onClick={() => setShowReplyList(prevState => !prevState)}>
-                Показать ответы ({subCommentsCount})
+                Показать ответы ({staticSubCommentCount || subCommentList?.length})
             </Button>
             { showReplyList && (
                 <List
                     loading={isLoading}
                     dataSource={subCommentList?.map(({user, text, createdAt, id, parentId}) => ({
+                        parentId,
                         commentId: id,
                         title: user?.name,
                         userId : user.id,
                         description: text,
                         userPicture: user.picture?.name,
                         createdAt : timeCreated(createdAt),
-                        parentId
                     }))}
                     renderItem={({title, description, createdAt, parentId, userPicture, commentId, userId}) => (
                         <CommentItemReply
@@ -40,8 +56,8 @@ export const ReplyList = ({ subCommentsCount, code, showReplyList, setShowReplyL
                 />
             ) }
             {
-                showReplyList && subCommentsCount > 10 &&
-                <Button className='my-2 p-3 rounded-[13px]' onClick={()=>{ refetch() }}>
+                (showReplyList && staticSubCommentCount > 10) && ((staticSubCommentCount - dynamicCountSubComment) > 0)  &&
+                <Button className='my-2 p-3 rounded-[13px]' onClick={refetchReq}>
                     Показать больше
                 </Button>
             }

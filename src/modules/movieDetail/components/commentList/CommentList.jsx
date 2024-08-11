@@ -7,11 +7,23 @@ import {CommentItem} from "@modules/movieDetail/components/commentItem/CommentIt
 
 const CommentList = ({ code }) => {
     const getCommentsReq = movieDetailStore(state => state.getComments);
-    const { data: commentList, isLoading } = useQuery({
+    const commentList = movieDetailStore(state => state.commentList);
+
+    const { isLoading } = useQuery({
         queryKey: ['getComments'],
         queryFn: () => getCommentsReq(code),
         enabled: !!code
     });
+    const commentListSource = Object.entries(commentList).map(([_, {user, text, createdAt, id, subCommentsCount}]) => ({
+        userId : user?.id,
+        commentId : id,
+        subCommentsCount,
+        title: user?.name,
+        userPicture : user.picture?.name,
+        description: text,
+        createdAt : timeCreated(createdAt)
+    }));
+
 
     return (
         <>
@@ -24,15 +36,7 @@ const CommentList = ({ code }) => {
                         description={<p className='text-gray-200/40 max-w-[400px] mx-auto text-[17px]'>Будьте первым кто оставит комментарий!</p>}/>
                 )}>
                     <List
-                        dataSource={commentList?.comments?.map(({user, text, createdAt, id, subCommentsCount}) => ({
-                            userId : user?.id,
-                            commentId : id,
-                            subCommentsCount,
-                            title: user?.name,
-                            userPicture : user.picture?.name,
-                            description: text,
-                            createdAt : timeCreated(createdAt),
-                        }))}
+                        dataSource={commentListSource}
                         renderItem={({title, description, createdAt, commentId, subCommentsCount, userId, userPicture}) => (
                             <CommentItem
                                 code={code}
