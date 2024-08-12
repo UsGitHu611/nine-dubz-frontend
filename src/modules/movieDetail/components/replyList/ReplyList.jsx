@@ -16,7 +16,7 @@ export const ReplyList = (
     }
 ) => {
     const subCommentList = movieDetailStore(state => state.subCommentList)[parentId];
-    const dynamicCountSubComment = movieDetailStore(state => state.dynamicCountSubComment);
+    const dynamicSubCommentCount = movieDetailStore(state => state.commentList)['a' + parentId].subCommentsCount;
 
     const refetchReq = async () => {
         await setOffset(prev => prev + 10);
@@ -56,7 +56,7 @@ export const ReplyList = (
                 />
             ) }
             {
-                (showReplyList && staticSubCommentCount > 10) && ((staticSubCommentCount - dynamicCountSubComment) > 0)  &&
+                (showReplyList && staticSubCommentCount > 10) && (dynamicSubCommentCount - (subCommentList?.length || 0)) &&
                 <Button className='my-2 p-3 rounded-[13px]' onClick={refetchReq}>
                     Показать больше
                 </Button>

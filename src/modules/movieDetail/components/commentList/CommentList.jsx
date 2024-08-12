@@ -14,17 +14,20 @@ const CommentList = ({ code }) => {
         queryFn: () => getCommentsReq(code),
         enabled: !!code
     });
-    const commentListSource = Object.entries(commentList).map(([_, {user, text, createdAt, id, subCommentsCount}]) => ({
-        userId : user?.id,
-        commentId : id,
-        subCommentsCount,
-        title: user?.name,
-        userPicture : user.picture?.name,
-        description: text,
-        createdAt : timeCreated(createdAt)
-    }));
-
-
+    const commentListSource = Object.entries(commentList).reduce((prevV, currV) => {
+        return currV[0] === 'commentsCount' ? prevV : [
+            ...prevV,
+            {
+                userId : currV[1].user?.id,
+                commentId : currV[1].id,
+                subCommentsCount : currV[1].subCommentsCount,
+                title: currV[1].user?.name,
+                userPicture : currV[1]?.user.picture?.name,
+                description: currV[1].text,
+                createdAt : timeCreated(currV[1].createdAt)
+            }
+        ]
+    }, []);
     return (
         <>
             { isLoading ? <h2>Loading</h2> : (

@@ -3,7 +3,6 @@ import {create} from "zustand";
 export const movieDetailStore = create((set, get) => ({
     commentList: {},
     subCommentList: {},
-    dynamicCountSubComment : 0,
 
     getComments: async (code) => {
         try {
@@ -13,12 +12,15 @@ export const movieDetailStore = create((set, get) => ({
             const data = await response.json();
             if (response.ok) {
                 set(({
-                    commentList: data?.comments.reduce((prevV, currV) => {
-                        return {
-                            ...prevV,
-                            ['a' + currV.id] : currV
-                        }
-                    }, {})
+                    commentList: {
+                        ...data?.comments.reduce((prevV, currV) => {
+                            return {
+                                ...prevV,
+                                ['a' + currV.id] : currV
+                            }
+                        }, {}),
+                        commentsCount : data.commentsCount
+                    }
                 }))
             }
             return data;
@@ -42,8 +44,7 @@ export const movieDetailStore = create((set, get) => ({
                             ...data,
                         ]
                     }
-                }))
-                set(prev => ({dynamicCountSubComment : prev.dynamicCountSubComment + data?.length}))
+                }));
             }
             return data;
         } catch (e) {
@@ -67,6 +68,12 @@ export const movieDetailStore = create((set, get) => ({
                         ...prev.commentList,
                     }
                 }))
+                set(prev => ({
+                    commentList : {
+                        ...prev.commentList,
+                        commentsCount: prev.commentList.commentsCount + 1
+                    }
+                }))
             }
             return data;
         } catch (e) {
@@ -82,9 +89,6 @@ export const movieDetailStore = create((set, get) => ({
                 body: JSON.stringify({text})
             });
             const data = await response.json();
-            set(prev => ({
-                dynamicCountSubComment : prev.dynamicCountSubComment + 1
-            }))
             if(response.ok){
                 set(prev => ({
                     subCommentList : {
@@ -95,6 +99,16 @@ export const movieDetailStore = create((set, get) => ({
                         ]
                     }
                 }))
+                set(prev => ({
+                    commentList: {
+                        ...prev.commentList,
+                        ['a' + parentId] : {
+                            ...prev.commentList['a' + parentId],
+                            subCommentsCount: prev.commentList['a' + parentId].subCommentsCount + 1
+                        }
+                    }
+                }))
+                console.log(get().commentList)
             }
             return data
         } catch (e) {
@@ -115,13 +129,25 @@ export const movieDetailStore = create((set, get) => ({
                     set(prev => {
                         delete prev.commentList['a' + commentId];
                         return {
-                            commentList : { ...prev.commentList }
+                            commentList : {
+                                ...prev.commentList,
+                                commentsCount : prev.commentList.commentsCount - 1
+                            }
                         };
                     })
                 }else {
                     set(prev => ({
                         subCommentList : {
                             [parentId] : prev.subCommentList[parentId].filter(({ id }) => commentId !== id )
+                        }
+                    }))
+                    set(prev => ({
+                        commentList : {
+                            ...prev.commentList,
+                            ['a' + parentId] : {
+                                ...prev.commentList['a' + parentId],
+                                subCommentsCount : prev.commentList['a' + parentId].subCommentsCount - 1
+                            }
                         }
                     }))
                 }
