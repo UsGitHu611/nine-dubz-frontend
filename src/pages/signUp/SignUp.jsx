@@ -1,14 +1,10 @@
-import {lazy, Suspense} from "react";
-
-const Registration = lazy(()=> import('@modules/registrationForm/Registration'));
+import Registration from "@modules/registrationForm/Registration.jsx";
 
 const SignUp = () => {
     return (
-        <Suspense fallback={<small>ahahaahha</small>}>
-            <section className='bg-container min-h-[calc(100vh_-_170px)] flex justify-center items-center'>
-                <Registration/>
-            </section>
-        </Suspense>
+        <section className='bg-container min-h-[calc(100vh_-_170px)] flex justify-center items-center'>
+            <Registration/>
+        </section>
     );
 }
 

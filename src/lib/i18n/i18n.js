@@ -8,12 +8,17 @@ i18n
     .init({
         debug: true,
         fallbackLng: 'ru',
+        detection : {
+            caches : ['cookie'],
+            lookupCookie : 'lang'
+        },
         interpolation: {
             escapeValue: false,
         },
         resources: {
-            en: {
+            eng: {
                 translation: {
+                    '404': 'Be careful, a scientist ahead!',
                     footer: "The author of this shit personally owns the right to do voiceovers for these films.",
                     registration: "Registration",
                     login: "Login",
@@ -31,6 +36,7 @@ i18n
             },
             ru: {
                 translation: {
+                    '404': 'Осторожно, ученый!',
                     footer: "Автор этой хуйни лично владеет правом делать озвучку на эти фильмы.",
                     registration: "Регистрация",
                     login: "Вход",

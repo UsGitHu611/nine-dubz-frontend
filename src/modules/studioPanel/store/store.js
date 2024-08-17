@@ -26,7 +26,7 @@ export const studioStore = create((set, get) => ({
     setIsLoadFile: (bool) => set({isLoadFile: bool}),
     setShowModal : (bool) => set({ showModal : bool }),
     setIsConnected: (bool) => set({ isConnected: bool }),
-    setAllMovies: (movies) => set({ allMovies: [ ...movies ] }),
+    setAllMovies: (movies) => set({ allMovies: movies }),
     setFilePos: (pos) => set(prev =>({ filePos: prev.filePos + pos })),
 
     createMovie : async (action) => {

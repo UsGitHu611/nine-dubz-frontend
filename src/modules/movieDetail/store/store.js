@@ -4,16 +4,16 @@ export const movieDetailStore = create((set, get) => ({
     commentList: {},
     subCommentList: {},
 
-    getComments: async (code) => {
+    getComments: async ({code, offset}) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/comment/${code}`, {
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/comment/${code}?offset=${offset}&limit=20`, {
                 credentials: "include"
             });
             const data = await response.json();
             if (response.ok) {
-                set(({
+                set({
                     commentList: {
-                        ...data?.comments.reduce((prevV, currV) => {
+                        ...data?.comments?.reduce((prevV, currV) => {
                             return {
                                 ...prevV,
                                 ['a' + currV.id] : currV
@@ -21,7 +21,7 @@ export const movieDetailStore = create((set, get) => ({
                         }, {}),
                         commentsCount : data.commentsCount
                     }
-                }))
+                })
             }
             return data;
         } catch (e) {
@@ -29,9 +29,9 @@ export const movieDetailStore = create((set, get) => ({
         }
     },
 
-    getReply: async ({code, commentId, offset, limit}) => {
+    getReply: async ({code, commentId, offset}) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/comment/${code}/${commentId}?offset=${offset}&limit=${limit}`, {
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/comment/${code}/${commentId}?offset=${offset}&limit=10`, {
                 credentials: "include"
             });
             const data = await response.json();

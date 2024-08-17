@@ -10,7 +10,7 @@ export const MoviesList = () => {
             { !movies?.length && <h2 className='text-gray-200'>Список пуст</h2> }
             { isError && <h1 className='text-[red]'>Error</h1> }
             { isLoading
-                ? <SkeletonList isActive={isLoading}/>
+                ? <SkeletonList />
                 : <ul className='grid grid-cols-4 gap-2 my-[50px] lg-mobile:grid-cols-2 md-mobile:grid-cols-1 laptop:grid-cols-3'>
                     { movies?.map((movie) => (
                         <li key={movie.code} className='p-3 rounded-[8px] hover:scale-105

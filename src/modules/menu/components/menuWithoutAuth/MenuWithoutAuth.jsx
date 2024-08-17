@@ -8,7 +8,7 @@ const MenuWithoutAuth = () => {
     const { t, translation } = useTranslate();
 
     return (
-        <div className='flex justify-between items-center'>
+        <div className='flex justify-between items-center px-3'>
             <Logo/>
             <Menu
                 className='bg-transparent'

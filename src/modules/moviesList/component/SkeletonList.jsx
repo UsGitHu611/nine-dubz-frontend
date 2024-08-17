@@ -1,6 +1,6 @@
 import {Card, Skeleton} from "antd";
 
-const SkeletonList = ({ isActive }) => {
+const SkeletonList = () => {
     const listItem = Array(8).fill(0);
 
     return (
@@ -9,26 +9,23 @@ const SkeletonList = ({ isActive }) => {
                 <li key={index} className='p-3 lg-mobile:w-full lg-mobile:px-3'>
                     <Card
                         styles={{ cover: { borderRadius: "9px", overflow: "hidden" }}}
-                        className='bg-transparent border-transparent'
+                        className='bg-transparent border-transparent animate-pulse'
                         cover={
                             <Skeleton.Avatar
                                 style={{width: "100%", height:"100%"}}
                                 className='h-[210px] md-mobile:h-[275px] sm-mobile:h-[220px] bg-gradient-to-r from-gray-600/10 to-gray-500/10'
-                                shape='square'
-                                active={isActive}/>
+                                shape='square'/>
                         }>
                         <Card.Meta
                             avatar={
                             <Skeleton.Avatar
                                 className='rounded-full bg-gradient-to-r from-gray-600/10 to-gray-500/10'
-                                size='large'
-                                active={isActive}/>
+                                size='large'/>
                         }
                             description={
                             <Skeleton
                                 title={false}
-                                paragraph={{rows: 2, width: '250px'}}
-                                active={isActive}/>
+                                paragraph={{rows: 2, width: '250px'}}/>
                             }
                         />
                     </Card>

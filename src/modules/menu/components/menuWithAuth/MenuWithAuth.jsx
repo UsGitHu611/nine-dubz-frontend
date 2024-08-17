@@ -15,13 +15,13 @@ const MenuWithAuth = () => {
     const firstLetterUser = userInfo?.name?.at(0)?.toUpperCase();
 
     return (
-        <div className='flex justify-between items-center md-mobile:px-3'>
+        <div className='flex justify-between items-center px-3'>
             <Logo/>
             <Menu
                 className='bg-transparent'
                 mode='horizontal'
                 key='menuWithAuth'>
-                <Menu.SubMenu key='submenu' style={{lineHeight: "19px", padding: "2px"}} icon={
+                <Menu.SubMenu key='submenuMain' style={{lineHeight: "19px", padding: "2px"}} icon={
                     pathImageUser
                         ? <Avatar size='large' src={`${import.meta.env.VITE_DEV_URL}/api/file/${pathImageUser}`}/>
                         : <Avatar size='large'>{firstLetterUser}</Avatar>
@@ -29,9 +29,9 @@ const MenuWithAuth = () => {
                     <Menu.Item key='studio'>
                         <Link to='/studio'>{t("studio")}</Link>
                     </Menu.Item>
-                    <Menu.SubMenu title={t("language")}>
+                    <Menu.SubMenu key='submenuLangSwitch' title={t("language")}>
                         <Menu.Item key='lang-en'>
-                            <p onClick={() => translation('en')}>English</p>
+                            <p onClick={() => translation('eng')}>English</p>
                         </Menu.Item>
                         <Menu.Item key='lang-ru'>
                             <p onClick={() => translation('ru')}>Русский</p>

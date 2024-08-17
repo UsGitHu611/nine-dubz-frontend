@@ -3,7 +3,7 @@ import path from "node:path"
 import react from '@vitejs/plugin-react'
 import { patchCssModules } from 'vite-css-modules'
 
-export default defineConfig({
+export default defineConfig(({ mode }) =>({
   plugins: [react(), patchCssModules()],
   resolve: {
     alias: {
@@ -16,6 +16,7 @@ export default defineConfig({
     }
   },
   build: {
+    outDir : path.resolve(__dirname, mode === 'development' ? 'dist_dev' : 'dist_prod') ,
     rollupOptions: {
       output: {
         entryFileNames: `assets/[name].js`,
@@ -24,4 +25,4 @@ export default defineConfig({
       }
     }
   }
-})
+}))

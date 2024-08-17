@@ -6,35 +6,23 @@ import {Preview} from "@modules/studioPanel/components/preview/Preview.jsx";
 import {NavLink} from "react-router-dom";
 import {DeleteOutlined, ExperimentOutlined} from "@ant-design/icons";
 import {useTranslate} from "@modules/menu/hook/useTranslate.js";
+import {useTableMovies} from "@modules/studioPanel/hook/useTableMovies.js";
 
 
 export const TableMovies = () => {
     const getMoviesStudio = studioStore(state => state.getMoviesStudio);
-    const updateMovieStatus = studioStore(state => state.updateMovieStatus);
-    const deleteMovieStudio = studioStore(state => state.deleteMovieStudio);
     const setAllMovies = studioStore(state => state.setAllMovies);
     const hasPermission = studioStore(state => state.hasPermission);
     const {t} = useTranslate();
 
-    const studioMoviesInvalidate = useQueryClient();
-
     const { data: moviesStudio, isLoading } = useQuery({
         queryKey: ['studioMovies'],
         queryFn: getMoviesStudio,
-        enabled: hasPermission
+        enabled: !!hasPermission
     })
 
-    const { mutate } = useMutation({
-        mutationKey: ['moviePublished'],
-        mutationFn: (option) => updateMovieStatus(option),
-        onSuccess: studioMoviesInvalidate.invalidateQueries({ queryKey: ['studioMovies'] })
-    })
+    const { deleteMovie, updateStatus } = useTableMovies();
 
-    const { mutate : deleteMovie } = useMutation({
-        mutationKey: ['deleteMovieStudio'],
-        mutationFn: (code) => deleteMovieStudio(code),
-        onSuccess: studioMoviesInvalidate.invalidateQueries({ queryKey: ['studioMovies'] })
-    })
 
     const columns = [
         {
@@ -65,32 +53,30 @@ export const TableMovies = () => {
         }
     ];
 
-    const dataMovies = () => {
-        return moviesStudio?.map(({isPublished, name, code, createdAt, preview, defaultPreview, video, defaultPreviewWebp, previewWebp}) => ({
-            key: code,
-            movie: <Preview
-                defaultPreviewWebp={defaultPreviewWebp}
-                previewWebp={previewWebp}
-                video={video}
-                defaultPreview={defaultPreview}
-                preview={preview}/>,
-            name: <NavLink
-                className='block hover:underline hover:text-gray-200 max-w-[482px]'
-                to={`/studio/edit/${code}`}>{name}</NavLink>,
-            date : new Date(createdAt).toLocaleDateString(),
-            access: <Select
-                showArrow={false}
-                variant='borderless'
-                popupMatchSelectWidth={155}
-                defaultValue={isPublished}
-                options={[
-                    { value: true, label: "Опубликовано" },
-                    { value: false, label: "Не опубликовано" }
-                ]}
-                onChange={(value) => mutate({value, code})}/>,
-                delete : <DeleteOutlined style={{ fontSize: "20px", color: "red"}}/>
-        }))
-    }
+    const dataMovies = moviesStudio?.map(({isPublished, name, code, createdAt, preview, defaultPreview, video, defaultPreviewWebp, previewWebp}) => ({
+        key: code,
+        movie: <Preview
+            defaultPreviewWebp={defaultPreviewWebp}
+            previewWebp={previewWebp}
+            video={video}
+            defaultPreview={defaultPreview}
+            preview={preview}/>,
+        name: <NavLink
+            className='block hover:underline hover:text-gray-200 max-w-[482px]'
+            to={`/studio/edit/${code}`}>{name}</NavLink>,
+        date : new Date(createdAt).toLocaleDateString(),
+        access: <Select
+            suffixIcon={false}
+            variant='borderless'
+            popupMatchSelectWidth={155}
+            defaultValue={isPublished}
+            options={[
+                { value: true, label: "Опубликовано" },
+                { value: false, label: "Не опубликовано" }
+            ]}
+            onChange={(value) => updateStatus({value, code})}/>,
+        delete : <DeleteOutlined style={{ fontSize: "20px", color: "red"}}/>
+    }))
 
     return (
         <ConfigProvider
@@ -114,7 +100,7 @@ export const TableMovies = () => {
                     spinning: isLoading,
                     indicator: <PacmanLoader/>
                 }}
-                dataSource={hasPermission ? dataMovies() : []}
+                dataSource={dataMovies}
                 columns={columns}
                 pagination/>
         </ConfigProvider>

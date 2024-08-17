@@ -1,16 +1,14 @@
 import {Container} from "@components/container/Container.jsx";
-import {lazy, Suspense} from "react";
+import StudioPanel from "@modules/studioPanel/StudioPanel.jsx";
 
-const StudioPanel = lazy(() => import('@modules/studioPanel/StudioPanel.jsx'))
-
-export const Studio = () => {
+const Studio = () => {
     return (
-        <Suspense fallback={<small>ahahahaa</small>}>
-            <section>
-                <Container>
-                    <StudioPanel/>
-                </Container>
-            </section>
-        </Suspense>
+        <section>
+            <Container>
+                <StudioPanel/>
+            </Container>
+        </section>
     )
 }
+
+export default Studio;

@@ -16,7 +16,7 @@ export const CommentItem = ({ description, createdAt, title, code, subCommentsCo
 
     const { isLoading, refetch } = useQuery({
         queryKey: ['getReply', commentId],
-        queryFn: () => getReplyReq({code, commentId, offset, limit: 10}),
+        queryFn: () => getReplyReq({code, commentId, offset}),
         enabled: !subCommentList[commentId]?.length && !!showReplyList
     });
 

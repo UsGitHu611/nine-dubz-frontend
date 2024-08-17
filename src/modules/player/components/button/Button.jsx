@@ -43,12 +43,12 @@ export function Play({ tooltipPlacement }) {
 }
 
 export function Mute({ tooltipPlacement }) {
-    const volume = useMediaState('volume'),
-        isMuted = useMediaState('muted');
+    const volume = useMediaState('volume');
+    const isMuted = useMediaState('muted');
     return (
         <Tooltip.Root>
             <Tooltip.Trigger asChild>
-                <MuteButton className={buttonClass}>
+                <MuteButton className={`${buttonClass} md-mobile:hidden`}>
                     {isMuted || volume === 0 ? (
                         <MuteIcon className="w-8 h-8" />
                     ) : volume < 0.5 ? (
@@ -70,7 +70,7 @@ export function PIP({ tooltipPlacement }) {
     return (
         <Tooltip.Root>
             <Tooltip.Trigger asChild>
-                <PIPButton className={buttonClass}>
+                <PIPButton className={`${buttonClass} md-mobile:hidden`}>
                     {isActive ? (
                         <PictureInPictureExitIcon className="w-8 h-8" />
                     ) : (

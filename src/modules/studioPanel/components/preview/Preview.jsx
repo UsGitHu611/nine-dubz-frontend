@@ -1,8 +1,8 @@
 import {MoonLoader} from "react-spinners";
 
 
-export const Preview = ({ preview, defaultPreview, video, defaultPreviewWebp, previewWebp }) => {
-    const isVideoDead = video === null;
+export const Preview = ({ preview, defaultPreview, defaultPreviewWebp, previewWebp }) => {
+    const isVideoDead = defaultPreview === null;
 
     return (
         <>
@@ -18,26 +18,19 @@ export const Preview = ({ preview, defaultPreview, video, defaultPreviewWebp, pr
                         size={27.5}
                         color='#e3e3e3'
                         speedMultiplier={0.4}/>
-                    <picture>
-                        <source
-                            type='image/webp'
-                            className='h-[59px] object-cover opacity-0'
-                            srcSet={`${import.meta.env.VITE_DEV_URL}/api/file/${previewWebp?.name || defaultPreviewWebp?.name}`}/>
-                        <img
-                            className='h-[59px] object-cover opacity-0'
-                            src={`${import.meta.env.VITE_DEV_URL}/api/file/${preview?.name || defaultPreview?.name}`}
-                            loading='lazy'
-                            alt='Превью'/>
-                    </picture>
+                    <img
+                        className='h-[59px] object-cover opacity-0'
+                        src={`${import.meta.env.VITE_DEV_URL}/api/file/${preview?.name || defaultPreview?.name}`}
+                        loading='lazy'
+                        alt='Превью'/>
                 </div>
             ) : (
                 <picture>
                     <source
                         type='image/webp'
-                        className='h-[59px] object-cover opacity-0'
                         srcSet={`${import.meta.env.VITE_DEV_URL}/api/file/${previewWebp?.name || defaultPreviewWebp?.name}`}/>
                     <img
-                        className='h-[59px] object-cover opacity-0'
+                        className='h-[59px] object-cover'
                         src={`${import.meta.env.VITE_DEV_URL}/api/file/${preview?.name || defaultPreview?.name}`}
                         loading='lazy'
                         alt='Превью'/>

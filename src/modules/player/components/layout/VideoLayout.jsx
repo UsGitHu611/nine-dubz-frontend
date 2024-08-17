@@ -1,12 +1,9 @@
 import styles from '../../css/video-layout.module.css';
-
 import { Controls, Gesture } from '@vidstack/react';
-
 import * as Buttons from '../button/Button.jsx';
 import * as Menus from '../menus/Menus.jsx';
 import * as Sliders from '../sliders/Sliders.jsx';
 import { TimeGroup } from '../timeGroup/TimeGroup.jsx';
-import { Title } from '../title/Title.jsx';
 
 
 export function VideoLayout({ thumbnails }) {
@@ -14,7 +11,8 @@ export function VideoLayout({ thumbnails }) {
         <>
             <Gestures />
             <Controls.Root
-                className={`${styles.controls} media-controls:opacity-100 absolute inset-0 z-10 flex h-full w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity`}
+                className={`${styles.controls} media-controls:opacity-100 absolute inset-0 z-10 flex h-full 
+                w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity`}
             >
                 <div className="flex-1" />
                 <Controls.Group className="flex w-full items-center px-2">
@@ -25,9 +23,8 @@ export function VideoLayout({ thumbnails }) {
                     <Buttons.Mute tooltipPlacement="top" />
                     <Sliders.Volume />
                     <TimeGroup />
-                    <Title />
                     <div className="flex-1" />
-                    <Menus.Settings placement="top end" tooltipPlacement="top" />
+                    <Menus.Settings placement="top left" tooltipPlacement="top" />
                     <Buttons.PIP tooltipPlacement="top" />
                     <Buttons.Fullscreen tooltipPlacement="top end" />
                 </Controls.Group>

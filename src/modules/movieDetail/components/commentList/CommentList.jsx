@@ -1,19 +1,23 @@
 import {useQuery} from "@tanstack/react-query";
 import {movieDetailStore} from "@modules/movieDetail/store/store.js";
-import {ConfigProvider, Empty, List} from "antd";
+import {ConfigProvider, Empty, List, Skeleton} from "antd";
 import {CommentOutlined} from "@ant-design/icons";
 import {timeCreated} from "@/helper/timeCreated.js";
 import {CommentItem} from "@modules/movieDetail/components/commentItem/CommentItem.jsx";
 
+
+
 const CommentList = ({ code }) => {
     const getCommentsReq = movieDetailStore(state => state.getComments);
     const commentList = movieDetailStore(state => state.commentList);
+    const skeletonArray = Array(4).fill(0);
 
     const { isLoading } = useQuery({
         queryKey: ['getComments'],
-        queryFn: () => getCommentsReq(code),
+        queryFn: async () => getCommentsReq({code, offset : 0}),
         enabled: !!code
     });
+
     const commentListSource = Object.entries(commentList).reduce((prevV, currV) => {
         return currV[0] === 'commentsCount' ? prevV : [
             ...prevV,
@@ -28,9 +32,12 @@ const CommentList = ({ code }) => {
             }
         ]
     }, []);
+
     return (
         <>
-            { isLoading ? <h2>Loading</h2> : (
+            { isLoading ? skeletonArray.map((_, index) => (
+                <Skeleton key={index} loading={isLoading} active avatar/>
+            )) : (
                 <ConfigProvider
                     renderEmpty={() => (
                     <Empty
@@ -40,6 +47,7 @@ const CommentList = ({ code }) => {
                 )}>
                     <List
                         dataSource={commentListSource}
+                        loading={isLoading}
                         renderItem={({title, description, createdAt, commentId, subCommentsCount, userId, userPicture}) => (
                             <CommentItem
                                 code={code}
