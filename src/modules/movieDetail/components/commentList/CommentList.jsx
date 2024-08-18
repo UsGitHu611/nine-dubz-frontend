@@ -5,8 +5,6 @@ import {CommentOutlined} from "@ant-design/icons";
 import {timeCreated} from "@/helper/timeCreated.js";
 import {CommentItem} from "@modules/movieDetail/components/commentItem/CommentItem.jsx";
 
-
-
 const CommentList = ({ code }) => {
     const getCommentsReq = movieDetailStore(state => state.getComments);
     const commentList = movieDetailStore(state => state.commentList);

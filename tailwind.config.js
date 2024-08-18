@@ -21,6 +21,15 @@ export default {
       },
       gridTemplateColumns: {
         'grid-with-button': 'auto 1fr'
+      },
+      keyframes : {
+        'mobile-menu' : {
+          '0%' : {transform: 'translateY(100%)'},
+          '100%' : {transform: 'translateY(0)'},
+        }
+      },
+      animation : {
+        'mobile-menu': 'mobile-menu .3s ease-in-out'
       }
     },
 

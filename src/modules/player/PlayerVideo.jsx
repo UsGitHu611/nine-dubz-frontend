@@ -30,7 +30,7 @@ export const PlayerVideo = ({ code, vtt, preview, defaultPreview, videos }) => {
         <MediaPlayer
             className='w-full aspect-video md-mobile:aspect-square bg-slate-950
             text-white font-sans rounded-md ring-media-focus data-[focus]:ring-4
-            relative overflow-hidden data-[buffering]:first:visible'
+            relative overflow-hidden'
             title="Sprite Fight"
             crossOrigin
             playsInline

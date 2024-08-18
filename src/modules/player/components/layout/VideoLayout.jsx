@@ -11,7 +11,7 @@ export function VideoLayout({ thumbnails }) {
         <>
             <Gestures />
             <Controls.Root
-                className={`${styles.controls} media-controls:opacity-100 absolute inset-0 z-10 flex h-full 
+                className={`${styles.controls} media-controls:opacity-100 absolute inset-0 flex h-full 
                 w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity`}
             >
                 <div className="flex-1" />
