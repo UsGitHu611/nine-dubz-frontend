@@ -8,8 +8,7 @@ const MenuWithoutAuth = () => {
     const { t, translation } = useTranslate();
 
     return (
-        <div className='flex justify-between items-center px-3'>
-            <Logo/>
+        <>
             <Menu
                 className='bg-transparent'
                 mode='horizontal'
@@ -37,7 +36,7 @@ const MenuWithoutAuth = () => {
                     </Menu.SubMenu>
                 </Menu.SubMenu>
             </Menu>
-        </div>
+        </>
     );
 }
 

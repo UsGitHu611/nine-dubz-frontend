@@ -6,7 +6,7 @@ export const Preview = ({ preview, defaultPreview, webpPreview, webpDefaultPrevi
                 srcSet={`${import.meta.env.VITE_DEV_URL}/api/file/${webpPreview?.name || webpDefaultPreview?.name}`}/>
             <img
                 src={`${import.meta.env.VITE_DEV_URL}/api/file/${preview?.name || defaultPreview?.name}`}
-                className='object-cover w-full h-[210px] md-mobile:h-[275px] sm-mobile:h-[220px]'
+                className='object-cover h-[193px] w-[340px] md-mobile:h-[275px] sm-mobile:h-[220px]'
                 loading='lazy'
                 width={326}
                 height={201}

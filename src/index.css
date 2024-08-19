@@ -9,11 +9,6 @@
 
 html, body{ @apply min-h-[100vh] }
 
-main{ @apply flex-1 }
-
-body{ @apply bg-gray-900 text-gray-200 }
-
-
 .ant-input-textarea-show-count:has(#replyPanel) .ant-input-data-count{
     top: 4px;
 }

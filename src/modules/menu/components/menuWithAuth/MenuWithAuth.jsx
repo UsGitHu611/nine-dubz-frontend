@@ -15,8 +15,7 @@ const MenuWithAuth = () => {
     const firstLetterUser = userInfo?.name?.at(0)?.toUpperCase();
 
     return (
-        <div className='flex justify-between items-center px-3'>
-            <Logo/>
+        <>
             <Menu
                 className='bg-transparent'
                 mode='horizontal'
@@ -42,7 +41,7 @@ const MenuWithAuth = () => {
                     </Menu.Item>
                 </Menu.SubMenu>
             </Menu>
-        </div>
+        </>
     );
 }
 

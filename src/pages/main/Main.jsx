@@ -1,4 +1,3 @@
-import { Container } from "@components/container/Container.jsx";
 import { MoviesList } from "@modules/moviesList/MoviesList.jsx";
 import { Helmet } from 'react-helmet-async';
 
@@ -14,9 +13,7 @@ export const Main =() => {
                 <meta property="og:locale" content="ru_RU"/>
                 <meta property="og:type" content="video.movie"/>
             </Helmet>
-            <Container>
-                <MoviesList/>
-            </Container>
+            <MoviesList/>
         </section>
     )
 }
