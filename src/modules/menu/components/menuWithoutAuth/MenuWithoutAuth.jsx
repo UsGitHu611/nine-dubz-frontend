@@ -10,13 +10,13 @@ const MenuWithoutAuth = () => {
     return (
         <>
             <Menu
-                className='bg-transparent'
+                className='bg-transparent justify-self-end self-center'
                 mode='horizontal'
                 key='menuWithoutAuth'>
 
                 <Menu.SubMenu key='submenu' style={{lineHeight: "19px"}} icon={
-                    <Avatar className='rounded-full bg-container p-2' src={
-                        <UserOutlined style={{ fontSize: "23px" }}/>
+                    <Avatar className='bg-container' src={
+                        <UserOutlined style={{ fontSize: "16px" }}/>
                     }/>
                 }>
                     <Menu.Item key='login'>

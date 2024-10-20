@@ -14,11 +14,12 @@ export const storeMenu = create(() => ({
         }
     },
 
-    getUserChanel: async () => {
+    getUsersChanel: async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/subscription`,{
                 credentials: "include"
             });
+            return response.json();
         }catch (e) {
             console.log(e.message)
         }

@@ -24,7 +24,7 @@ const MobileActionPanel = ({ getShortId, userId, code, commentId, setIsOpenMobil
             <div className='fixed bottom-0 left-0 right-0 bg-black/75 transform-cpu will-change-transform
                 backdrop-blur-sm animate-mobile-menu flex flex-col gap-2 px-4 py-2 divide-y divide-white/10'>
                 <button
-                    className='p-6 flex items-center justify-center gap-2'
+                    className='p-6 flex items-center text-gray-200 justify-center gap-2'
                     onClick={() => setShowMobileReplyPanel(true)}>
                     <Icon component={ReplyButton} className='text-[14px]'/>
                     Ответить
@@ -32,7 +32,7 @@ const MobileActionPanel = ({ getShortId, userId, code, commentId, setIsOpenMobil
                 {
                     isOwner && (
                         <button
-                            className='p-6 flex items-center justify-center gap-2'
+                            className='p-6 flex items-center text-gray-200 justify-center gap-2'
                             onClick={() => {
                                 deleteComment({code, commentId, parentId});
                                 setIsOpenMobileMenu(false);

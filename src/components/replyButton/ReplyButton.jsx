@@ -1,6 +1,6 @@
-export const ReplyButton = () => {
+export const ReplyButton = ({w, h}) => {
     return (
-		<svg viewBox="8 0 469 469" focusable="false" data-icon="reply" width="15px" height="15px" fill="currentColor" aria-hidden="true">
+		<svg className='text-xl' viewBox="8 0 469 469" focusable="false" data-icon="reply" width={`${w||'15'}px`} height={`${h||'15'}px`} fill="currentColor" aria-hidden="true">
 			<path d="M397.305,207.826c-67.733-59.947-161.493-61.12-194.56-59.307V74.706c0-5.867-4.8-10.667-10.667-10.667
 			c-2.453,0-4.907,0.853-6.827,2.453L3.918,215.826c-4.587,3.733-5.227,10.453-1.493,15.04c0.427,0.533,0.96,0.96,1.493,1.493
 			l181.333,149.333c4.587,3.733,11.307,3.093,15.04-1.493c1.6-1.92,2.453-4.267,2.453-6.827v-77.013

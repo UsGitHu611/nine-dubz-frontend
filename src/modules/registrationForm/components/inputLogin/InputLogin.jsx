@@ -1,8 +1,7 @@
-import {Form, Input, Tooltip} from "antd";
-import {ListRules} from "../listRules/ListRules"
-import {UserOutlined, InfoCircleOutlined} from "@ant-design/icons";
+import {Form, Input} from "antd";
+import {UserOutlined} from "@ant-design/icons";
 import {useCheckUniqueLogin} from "@modules/registrationForm/hook/useCheckUniqueLogin"
-import {rulesLogin, tooltipRulesLogin} from "@modules/registrationForm/configForm"
+import {rulesLogin} from "@modules/registrationForm/configForm"
 import {useEffect, useRef} from "react";
 import {useChangeLogin} from "@modules/registrationForm/hook/useChangeLogin.js";
 
@@ -30,13 +29,7 @@ export const InputLogin = () => {
                 ref={inputRef}
                 size='large'
                 prefix={<UserOutlined/>}
-                suffix={
-                    <Tooltip placement='right' title={
-                        <ListRules listRiles={tooltipRulesLogin} field='Логин'/>
-                    }>
-                        <InfoCircleOutlined/>
-                    </Tooltip>
-                }/>
+                />
         </Form.Item>
     );
 }

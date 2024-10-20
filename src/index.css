@@ -7,7 +7,9 @@
     --media-focus: 78 156 246;
 }
 
-html, body{ @apply min-h-[100vh] }
+.scroll-lock{
+    overflow: hidden;
+}
 
 .ant-input-textarea-show-count:has(#replyPanel) .ant-input-data-count{
     top: 4px;
@@ -75,6 +77,18 @@ html, body{ @apply min-h-[100vh] }
                 rgb(75 85 99 / 0.1)
         ) !important;
     }
+}
+
+.drag{
+    transition: none;
+}
+
+.drag-zone{
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.drag-zone > #drag-line{
+    background: rgba(255, 255, 255, 0.29);
 }
 
 

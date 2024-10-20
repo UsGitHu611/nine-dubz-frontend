@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 export const Main =() => {
 
     return (
-        <section>
+        <section className='w-full'>
             <h1 className='hidden'>NineDubzNineDubzNineDubz</h1>
             <Helmet>
                 <title>Home</title>

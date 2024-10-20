@@ -17,10 +17,10 @@ const MenuWithAuth = () => {
     return (
         <>
             <Menu
-                className='bg-transparent'
+                className='bg-transparent justify-self-end self-center'
                 mode='horizontal'
                 key='menuWithAuth'>
-                <Menu.SubMenu key='submenuMain' style={{lineHeight: "19px", padding: "2px"}} icon={
+                <Menu.SubMenu key='submenuMain' style={{lineHeight: "0"}} icon={
                     pathImageUser
                         ? <Avatar size='large' src={`${import.meta.env.VITE_DEV_URL}/api/file/${pathImageUser}`}/>
                         : <Avatar size='large'>{firstLetterUser}</Avatar>

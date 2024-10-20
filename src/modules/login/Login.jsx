@@ -1,9 +1,8 @@
 import {Button, Flex, Form, Input, Tooltip} from "antd";
 import {Link} from "react-router-dom";
-import {GoogleOutlined, InfoCircleOutlined, LockOutlined, MailOutlined} from "@ant-design/icons";
+import {EyeInvisibleOutlined, EyeOutlined, GoogleOutlined, LockOutlined, MailOutlined} from "@ant-design/icons";
 import {useGetUrlGoogle} from "@modules/registrationForm/hook/useGetUrlGoogle.js";
-import {rulesEmail, rulesPassword, tooltipRulesPassword} from "@modules/registrationForm/configForm.js";
-import {ListRules} from "@modules/registrationForm/components/listRules/ListRules.jsx";
+import {rulesEmail, rulesPassword} from "@modules/registrationForm/configForm.js";
 import {useLogin} from "@modules/login/hook/useLogin.js";
 
 const Login = () => {
@@ -35,13 +34,11 @@ const Login = () => {
            </Form.Item>
 
            <Form.Item className='text-gray-200' label='Password' name='password' rules={[rulesPassword]}>
-               <Input size='large' prefix={<LockOutlined />} suffix={
-                   <Tooltip placement='right' title={
-                       <ListRules listRiles={tooltipRulesPassword} field='Пароль' />
-                   }>
-                       <InfoCircleOutlined />
-                   </Tooltip>
-               } />
+               <Input.Password autocomplete='off' size='large' prefix={<LockOutlined />} iconRender={
+                   (visible) => visible
+                       ? <EyeOutlined style={{color: "white"}}/>
+                       : <EyeInvisibleOutlined style={{color: "white"}}/>
+               }/>
            </Form.Item>
            {message && <small className='text-red-500 block mt-2'>
                {message}

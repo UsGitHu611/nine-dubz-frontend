@@ -3,6 +3,7 @@ import {create} from "zustand";
 export const movieDetailStore = create((set, get) => ({
     commentList: {},
     subCommentList: {},
+    subscribed : false,
 
     getComments: async ({code, offset}) => {
         try {
@@ -36,12 +37,12 @@ export const movieDetailStore = create((set, get) => ({
             });
             const data = await response.json();
             if (response.ok) {
+
                 set(prev => ({
                     subCommentList: {
                         ...prev.subCommentList,
                         [commentId] : [
-                            ...prev.subCommentList[commentId] || [],
-                            ...data,
+                            ...data || [],
                         ]
                     }
                 }));
@@ -154,6 +155,18 @@ export const movieDetailStore = create((set, get) => ({
             }
             return data;
         } catch (e) {
+            console.log(e.message)
+        }
+    },
+
+    subscribe : async ({userId, method}) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/subscription/${userId}`, {
+                method,
+                credentials: "include",
+            });
+            return await response.json();
+        }catch (e) {
             console.log(e.message)
         }
     }

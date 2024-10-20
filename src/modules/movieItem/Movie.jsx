@@ -10,7 +10,7 @@ export const Movie = ({ movie }) => {
         <Link to={`/movie/${movie.code}`}>
             <Card
                 styles={{ cover: { borderRadius: "9px", overflow: "hidden" }}}
-                className='bg-transparent border-transparent'
+                className='bg-transparent border-transparent w-full overflow-hidden'
                 cover={
                 <Preview
                     webpPreview={movie?.previewWebp}
@@ -23,7 +23,7 @@ export const Movie = ({ movie }) => {
                     <Avatar size='large' src={`${import.meta.env.VITE_DEV_URL}/api/file/${movie.user.picture?.name}`}/>
                 }
                     title={
-                        <h2 title={movie.name} className='text-gray-200 text-balance line-clamp-2'>{movie.name}</h2>
+                        <h2 title={movie.name} className='text-gray-200 truncate ...'>{movie.name}</h2>
                     }
                     description={
                         <>

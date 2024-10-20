@@ -11,7 +11,7 @@ export const SidebarTabList = () => {
         <ul className='flex flex-col gap-1'>
             {
                 sideBarMenu.map(({ href, icon, label }) => (
-                    <li>
+                    <li key={href}>
                         <Link className='px-3 py-2 flex gap-6 text-[16px] font-medium items-center
                         hover:text-inherit hover:bg-white/20 rounded-lg' to={href}>
                             { icon }

@@ -1,10 +1,15 @@
-import { Form, Input, Button, Flex, Tooltip } from "antd";
-import { MailOutlined, LockOutlined, InfoCircleOutlined, GoogleOutlined } from "@ant-design/icons";
+import { Form, Input, Button, Flex } from "antd";
+import {
+    MailOutlined,
+    LockOutlined,
+    GoogleOutlined,
+    EyeOutlined,
+    EyeInvisibleOutlined
+} from "@ant-design/icons";
 import {Link} from "react-router-dom";
-import { ListRules } from "./components/listRules/ListRules"
 import { useRegister } from "./hook/useRegister";
 import { useGetUrlGoogle } from "./hook/useGetUrlGoogle";
-import { rulesEmail, rulesPassword, tooltipRulesPassword } from "./configForm"
+import { rulesEmail, rulesPassword } from "./configForm"
 import { InputLogin } from "./components/inputLogin/InputLogin";
 
 
@@ -14,7 +19,7 @@ const Registration = () => {
     const googleUrl = useGetUrlGoogle();
 
     return (
-        <Form className='min-w-80 pt-[80px]' onFinish={handleRegister} form={form} layout="vertical">
+        <Form className='min-w-80' onFinish={handleRegister} form={form} layout="vertical">
 
             <Form.Item>
                 <Link to={googleUrl} className='flex w-full gap-2 justify-center rounded-md border
@@ -39,12 +44,10 @@ const Registration = () => {
             </Form.Item>
 
             <Form.Item className='text-gray-200' label='Password' name='password' rules={[rulesPassword]}>
-                <Input size='large' prefix={<LockOutlined/>} suffix={
-                    <Tooltip placement='right' title={
-                        <ListRules listRiles={tooltipRulesPassword} field='Пароль'/>
-                    }>
-                        <InfoCircleOutlined/>
-                    </Tooltip>
+                <Input.Password size='large' autocomplete='off' prefix={<LockOutlined/>} iconRender={
+                    (visible) => visible
+                        ? <EyeOutlined style={{color: "white"}}/>
+                        : <EyeInvisibleOutlined style={{color: "white"}}/>
                 }/>
             </Form.Item>
             <small className='text-red-500 block mt-2'>

@@ -1,18 +1,30 @@
 import {Avatar, List} from "antd";
 import {ReplyList} from "@modules/movieDetail/components/replyList/ReplyList.jsx";
 import {ReplyPanel} from "@modules/movieDetail/components/replyPanel/ReplyPanel.jsx";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {movieDetailStore} from "@modules/movieDetail/store/store.js";
 import {useQuery} from "@tanstack/react-query";
 import {TitleComment} from "@modules/movieDetail/components/title/TitleComment.jsx";
+import {CommentContext} from "@modules/movieDetail/context/CommentContext.js";
 
 
-export const CommentItem = ({ description, createdAt, title, code, subCommentsCount, userId, userPicture, commentId }) => {
+export const CommentItem = () => {
     const [offset, setOffset] = useState(0);
     const [showReplyPanel, setShowReplyPanel] = useState(false);
     const [showReplyList, setShowReplyList] = useState(false);
     const getReplyReq = movieDetailStore(state => state.getReply);
     const subCommentList = movieDetailStore(state => state.subCommentList);
+
+    const {
+        commentId,
+        code, 
+        title,
+        createdAt,
+        userId,
+        description,
+        subCommentsCount,
+        userPicture
+    } = useContext(CommentContext);
 
     const { isLoading, refetch } = useQuery({
         queryKey: ['getReply', commentId],
@@ -28,7 +40,7 @@ export const CommentItem = ({ description, createdAt, title, code, subCommentsCo
                 title={<TitleComment {...{title, createdAt, code, userId, commentId, setShowReplyPanel, parentId : commentId}}/>}
                 description={
                 <>
-                    <p className='text-gray-200 text-[15px] break-all'>{description}</p>
+                    <p className='text-gray-200 text-[14px] line-clamp-1'>{description}</p>
                     { (!!subCommentsCount || !!subCommentList[commentId]?.length) && (
                         <ReplyList
                             code={code}

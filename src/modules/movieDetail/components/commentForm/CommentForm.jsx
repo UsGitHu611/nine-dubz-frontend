@@ -14,7 +14,7 @@ export const CommentForm = ({code}) => {
     }
 
     return (
-        <Form form={form} onFinish={finishHandler}>
+        <Form className='md-mobile:hidden' form={form} onFinish={finishHandler}>
             <Form.Item name='comment'>
                 <TextArea autoSize={{minRows: 3}} placeholder='Оставить комментарий...'/>
             </Form.Item>

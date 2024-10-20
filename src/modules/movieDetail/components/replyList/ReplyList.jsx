@@ -26,7 +26,7 @@ export const ReplyList = (
     return (
         <>
             <Button
-                className='my-2 p-3 rounded-[13px]'
+                className='my-2 p-3 rounded-[13px] md-mobile:hidden'
                 onClick={() => setShowReplyList(prevState => !prevState)}>
                 Показать ответы ({staticSubCommentCount || subCommentList?.length})
             </Button>

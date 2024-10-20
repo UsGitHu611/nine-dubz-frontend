@@ -10,13 +10,7 @@ import {ConfigProvider, App} from "antd";
 import {components} from "@/assets/js/configStyleUI.js"
 import { HelmetProvider } from "react-helmet-async"
 
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false
-        }
-    }
-});
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <QueryClientProvider client={queryClient}>
@@ -27,6 +21,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 </App>
             </ConfigProvider>
         </HelmetProvider>
-        <ReactQueryDevtools/>
+        {/*<ReactQueryDevtools/>*/}
     </QueryClientProvider>
 )

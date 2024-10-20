@@ -1,5 +1,5 @@
 import {Table, Select, ConfigProvider, Empty} from "antd";
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {useQuery} from "@tanstack/react-query";
 import {studioStore} from "@modules/studioPanel/store/store.js";
 import {PacmanLoader} from "react-spinners";
 import {Preview} from "@modules/studioPanel/components/preview/Preview.jsx";
@@ -22,7 +22,6 @@ export const TableMovies = () => {
     })
 
     const { deleteMovie, updateStatus } = useTableMovies();
-
 
     const columns = [
         {
@@ -88,21 +87,19 @@ export const TableMovies = () => {
                     description={<p className='text-gray-200 max-w-[400px] mx-auto text-lg'>{t('beta')}</p>}/>
             )}>
             <Table
-                className='w-full'
                 rowSelection={{
                     onChange: (_, a) => {
                         const resultCheckedRows = a.map(el => ({ code: el.key }));
                         setAllMovies(resultCheckedRows);
                     }
                 }}
-                size='small'
                 loading={{
                     spinning: isLoading,
                     indicator: <PacmanLoader/>
                 }}
                 dataSource={dataMovies}
                 columns={columns}
-                pagination/>
+                pagination={false}/>
         </ConfigProvider>
     )
 }

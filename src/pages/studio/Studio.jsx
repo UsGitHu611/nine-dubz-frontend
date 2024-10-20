@@ -2,7 +2,7 @@ import StudioPanel from "@modules/studioPanel/StudioPanel.jsx";
 
 const Studio = () => {
     return (
-        <section>
+        <section className='mx-auto'>
             <StudioPanel/>
         </section>
     )

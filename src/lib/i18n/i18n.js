@@ -12,6 +12,7 @@ i18n
             caches : ['cookie'],
             lookupCookie : 'lang'
         },
+        supportedLngs : ['eng', 'ru'],
         interpolation: {
             escapeValue: false,
         },

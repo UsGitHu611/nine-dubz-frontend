@@ -2,7 +2,7 @@ import Registration from "@modules/registrationForm/Registration.jsx";
 
 const SignUp = () => {
     return (
-        <section className='bg-container min-h-[calc(100vh_-_170px)] flex justify-center items-center'>
+        <section className='flex items-center mx-auto'>
             <Registration/>
         </section>
     );

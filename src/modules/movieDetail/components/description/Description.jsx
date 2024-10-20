@@ -11,7 +11,7 @@ export const Description = ({description, createdAt, views}) => {
             <div className='cursor-pointer p-3' onClick={() => setShowDescr(true)}>
                 <OtherInfoMovie views={views} createdAt={createdAt}/>
 
-                <div className={`text-gray-200 ${showDescr ? 'break-all cursor-text' : 'truncate ...'}`}>
+                <div className={`text-gray-200 ${showDescr ? 'break-all cursor-text whitespace-break-spaces' : 'truncate ...'}`}>
                     {description}
                     {showDescr && (
                         <button

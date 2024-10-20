@@ -4,6 +4,9 @@ import {ConfigProvider, Empty, List, Skeleton} from "antd";
 import {CommentOutlined} from "@ant-design/icons";
 import {timeCreated} from "@/helper/timeCreated.js";
 import {CommentItem} from "@modules/movieDetail/components/commentItem/CommentItem.jsx";
+import {CommentProvider} from "@modules/movieDetail/context/CommentProvider.jsx";
+import {MobileBottomContent} from "@modules/movieDetail/components/mobileBottomContent/MobileBottomContent.jsx";
+import {MobileCommentProvider} from "@modules/movieDetail/context/MobileCommentProvider.jsx";
 
 const CommentList = ({ code }) => {
     const getCommentsReq = movieDetailStore(state => state.getComments);
@@ -13,7 +16,8 @@ const CommentList = ({ code }) => {
     const { isLoading } = useQuery({
         queryKey: ['getComments'],
         queryFn: async () => getCommentsReq({code, offset : 0}),
-        enabled: !!code
+        enabled: !!code,
+        refetchOnWindowFocus : false
     });
 
     const commentListSource = Object.entries(commentList).reduce((prevV, currV) => {
@@ -39,23 +43,35 @@ const CommentList = ({ code }) => {
                 <ConfigProvider
                     renderEmpty={() => (
                     <Empty
-                        image={<CommentOutlined style={{ fontSize: "50px", color: "rgb(229 231 235 / 0.4)" }}/>}
+                        image={<CommentOutlined className='text-white/30 text-5xl'/>}
                         imageStyle={{ height: "auto" }}
-                        description={<p className='text-gray-200/40 max-w-[400px] mx-auto text-[17px]'>Будьте первым кто оставит комментарий!</p>}/>
+                        description={
+                        <p className='text-gray-200/40 max-w-[400px] mx-auto text-[15px] font-medium'>
+                            Будьте первым кто оставит комментарий!
+                        </p>
+                    }/>
                 )}>
+                    <MobileCommentProvider value={{commentListSource, code}}>
+                        <MobileBottomContent/>
+                    </MobileCommentProvider>
                     <List
+                        className='md-mobile:hidden'
                         dataSource={commentListSource}
                         loading={isLoading}
                         renderItem={({title, description, createdAt, commentId, subCommentsCount, userId, userPicture}) => (
-                            <CommentItem
-                                code={code}
-                                title={title}
-                                userId={userId}
-                                commentId={commentId}
-                                userPicture={userPicture}
-                                description={description}
-                                subCommentsCount={subCommentsCount}
-                                createdAt={createdAt}/>
+                            <CommentProvider commentValue={
+                                {code,
+                                    title,
+                                    userId,
+                                    commentId,
+                                    userPicture,
+                                    description,
+                                    subCommentsCount,
+                                    createdAt
+                                }
+                            }>
+                                <CommentItem/>
+                            </CommentProvider>
                         )}/>
                 </ConfigProvider>
             ) }

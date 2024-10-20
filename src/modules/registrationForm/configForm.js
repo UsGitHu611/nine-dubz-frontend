@@ -16,14 +16,3 @@ export const [rulesLogin, rulesEmail, rulesPassword] = [
         message: "Неверный пароль"
     }
 ]
-
-export const tooltipRulesLogin = [
-    "Латиницу и кириллицу",
-    "Цифры"
-];
-
-export const tooltipRulesPassword = [
-    "Латиницу",
-    "Спец. символы",
-    "Цифры",
-];

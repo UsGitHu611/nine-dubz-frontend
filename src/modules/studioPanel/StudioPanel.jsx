@@ -1,11 +1,11 @@
 import {TableMovies} from "@modules/studioPanel/components/tableListMovies/TableMovies.jsx";
-import {Button, ConfigProvider, Flex, Modal, Steps} from "antd";
-import {CloseOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
+import {ConfigProvider, Modal, Steps} from "antd";
+import {CloseOutlined} from "@ant-design/icons";
 import {DragAndDrop} from "@modules/studioPanel/components/step-one/DragAndDrop.jsx";
 import {EditMovie} from "@modules/studioPanel/components/step-two/EditMovie.jsx";
 import {studioStore} from "@modules/studioPanel/store/store.js";
 import {useShallow} from "zustand/react/shallow";
-import {useMutation} from "@tanstack/react-query";
+import {TopPanel} from "@modules/studioPanel/components/topPanel/TopPanel.jsx";
 
 const content = [
     { content: <DragAndDrop/> },
@@ -14,24 +14,14 @@ const content = [
 
 const StudioPanel = () => {
     const { confirm } = Modal;
-    const {
-        step,
-        allMovies,
-        showModal,
-        setFilePos,
-        setShowModal,
-        setCurrentStep,
-        deleteAllMovieStudio
-    } = studioStore(
+    const { step, showModal, setFilePos, setShowModal, setCurrentStep } = studioStore(
         useShallow(state => ({
             step: state.step,
             showModal: state.showModal,
-            allMovies: state.allMovies,
             setFilePos: state.setFilePos,
             setShowModal: state.setShowModal,
             setCurrentStep: state.setCurrentStep,
-            setAbortConnection: state.setAbortConnection,
-            deleteAllMovieStudio: state.deleteAllMovieStudio
+            setAbortConnection: state.setAbortConnection
         }))
     )
 
@@ -54,30 +44,9 @@ const StudioPanel = () => {
         });
     };
 
-
-    const { mutate : deleteAllMovie } = useMutation({
-        mutationKey: ['deleteAllMoviesStudio'],
-        mutationFn: (allMovies) => deleteAllMovieStudio(allMovies),
-    })
-
-    const deleteAllMovies = (allMovies) => {
-        if(!allMovies.length) return;
-        deleteAllMovie(allMovies);
-    }
-
-
     return (
-        <Flex gap={18} className='pt-[30px]' align='end' vertical>
-            <Flex align='center' gap={6}>
-                <Button
-                    onClick={() => deleteAllMovies(allMovies)}
-                    shape='circle'
-                    size='large'
-                    icon={<DeleteOutlined style={{ fontSize: "20px"}}/>}/>
-                <Button onClick={setShowModal} className='max-w-[150px]' size='large' icon={<PlusOutlined />}>
-                    Добавить
-                </Button>
-            </Flex>
+        <div className='flex flex-col gap-4 pt-[30px] items-end'>
+            <TopPanel />
             <ConfigProvider theme={{
                 components: {
                     Modal: {
@@ -107,7 +76,7 @@ const StudioPanel = () => {
                 </Modal>
             </ConfigProvider>
             <TableMovies/>
-        </Flex>
+        </div>
     )
 }
 

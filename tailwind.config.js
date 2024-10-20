@@ -9,7 +9,7 @@ export default {
       'laptop' : { max : '1230px' },
       'lg-mobile': { min : '625px', max : '768px' },
       'md-mobile': { max : '625px' },
-      'sm-mobile': { max : '325px' },
+      'sm-mobile': { max : '385px' },
     },
     extend: {
       colors: {
@@ -46,8 +46,10 @@ export default {
 
 function customVariants({ addVariant, matchVariant }) {
   matchVariant('parent-data', (value) => `.parent[data-${value}] > &`);
+  matchVariant('neighbor-variant', (value) => `&[${value}] ~ #${value}`);
 
   addVariant('hocus', ['&:hover', '&:focus-visible']);
+  addVariant('drag', ['&[drag]']);
   addVariant('group-hocus', ['.group:hover &', '.group:focus-visible &']);
 }
 

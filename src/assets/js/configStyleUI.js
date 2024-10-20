@@ -18,7 +18,7 @@ export const components = {
         colorTextDescription: "rgba(255,255,255,0.45)"
     },
     List : {
-        itemPadding: "10px 8px"
+        itemPadding: "10px 13px"
     },
     Button: {
         colorBgContainer: "rgba(255,255,255,0.05)",
@@ -49,7 +49,6 @@ export const components = {
         horizontalItemSelectedColor: "transparent",
         activeBarHeight: 0,
         iconMarginInlineEnd: 0,
-        horizontalLineHeight: 19,
 
     },
     Form: {

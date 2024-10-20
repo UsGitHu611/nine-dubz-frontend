@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const Logo = () => {
     return (
-        <Link to='/'>
+        <Link className='md-mobile:grow flex justify-center' to='/'>
             <svg className='w-[180px] h-[80px] lg-mobile:w-[140px] lg-mobile:md-mobile:h-[60px] md-mobile:w-[140px] md-mobile:h-[60px]'  version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 10">
 
                 <g fill="#fff" transform="translate(0,-10)">
