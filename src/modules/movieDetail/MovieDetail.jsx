@@ -26,7 +26,7 @@ export const MovieDetail = () => {
                 resolve={response}
                 errorElement={<NotFound/>}>
                 { ({defaultPreview, preview, views, code, webVtt, name, createdAt, description, videos, user, subscribed}) => (
-                    <div className='max-w-[1300px] p-3 md-mobile:p-0 rounded-[20px] md-mobile:rounded-none'>
+                    <div className='max-w-[1300px] p-3 pb-5 md-mobile:p-0'>
                         <PlayerVideo
                             code={code}
                             videos={videos}

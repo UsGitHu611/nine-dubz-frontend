@@ -18,10 +18,14 @@ import {
     VolumeHighIcon,
     VolumeLowIcon,
 } from '@vidstack/react/icons';
+import {CompressOutlined, ExpandOutlined} from "@ant-design/icons";
 
 
 export const buttonClass =
-    'group ring-media-focus relative inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4';
+    '' +
+    'relative inline-flex w-10 aspect-square cursor-pointer items-center md-mobile:w-full' +
+    'justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4' +
+    '';
 
 export const tooltipClass =
     'animate-out fade-out slide-out-to-bottom-2 data-[visible]:animate-in data-[visible]:fade-in data-[visible]:slide-in-from-bottom-4 z-10 rounded-sm bg-black/90 px-2 py-0.5 text-sm font-medium text-white parent-data-[open]:hidden';
@@ -32,7 +36,10 @@ export function Play({ tooltipPlacement }) {
         <Tooltip.Root>
             <Tooltip.Trigger asChild>
                 <PlayButton className={buttonClass}>
-                    {isPaused ? <PlayIcon className="w-8 h-8" /> : <PauseIcon className="w-8 h-8" />}
+                    { isPaused
+                        ? <PlayIcon className="w-full aspect-square" />
+                        : <PauseIcon className="w-full aspect-square" />
+                    }
                 </PlayButton>
             </Tooltip.Trigger>
             <Tooltip.Content className={tooltipClass} placement={tooltipPlacement}>
@@ -90,11 +97,11 @@ export function Fullscreen({ tooltipPlacement }) {
     return (
         <Tooltip.Root>
             <Tooltip.Trigger asChild>
-                <FullscreenButton className={buttonClass}>
+                <FullscreenButton className={buttonClass + " justify-end"}>
                     {isActive ? (
-                        <FullscreenExitIcon className="w-8 h-8" />
+                        <CompressOutlined className="w-8 h-8 justify-center" />
                     ) : (
-                        <FullscreenIcon className="w-8 h-8" />
+                        <ExpandOutlined className="w-8 h-8 justify-center" />
                     )}
                 </FullscreenButton>
             </Tooltip.Trigger>

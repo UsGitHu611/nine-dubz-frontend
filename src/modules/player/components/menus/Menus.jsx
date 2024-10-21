@@ -1,7 +1,6 @@
 import {Menu, Tooltip, useVideoQualityOptions} from '@vidstack/react';
-import { SettingsIcon } from '@vidstack/react/icons';
 import { buttonClass, tooltipClass } from '../button/Button.jsx';
-
+import {SettingOutlined} from "@ant-design/icons";
 
 export function Settings({ placement, tooltipPlacement }) {
     const options = useVideoQualityOptions({ auto: false, sort: 'descending' });
@@ -11,7 +10,10 @@ export function Settings({ placement, tooltipPlacement }) {
             <Tooltip.Root>
                 <Tooltip.Trigger asChild>
                     <Menu.Button className={buttonClass}>
-                        <SettingsIcon className="h-8 w-8 transform transition-transform duration-200 ease-out group-data-[open]:rotate-90" />
+                        <SettingOutlined className={`
+                            w-full text-xl justify-center aspect-square transform
+                            transition-transform duration-200 ease-out group-data-[open]:rotate-90
+                        `} />
                     </Menu.Button>
                 </Tooltip.Trigger>
                 <Tooltip.Content className={tooltipClass} placement={tooltipPlacement}>

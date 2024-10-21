@@ -1,6 +1,6 @@
-import {Avatar} from "antd";
 import {movieDetailStore} from "@modules/movieDetail/store/store.js";
 import {useMutation} from "@tanstack/react-query";
+import {PictureOrSavingLetter} from "@components/pictureOrSavingLetter/PictureOrSavingLetter.jsx";
 
 export const Author = ({ picture, name, userId }) => {
     const subscribe = movieDetailStore(state => state.subscribe);
@@ -15,11 +15,14 @@ export const Author = ({ picture, name, userId }) => {
 
     return (
         <div className='flex items-center gap-[10px]'>
-            <Avatar size='large' src={`${import.meta.env.VITE_DEV_URL}/api/file/${picture?.name}`}/>
-            <h3 className='text-gray-200 text-[16px]'>{name}</h3>
+            <PictureOrSavingLetter
+                userPicture={picture?.name}
+                userName={name}
+            />
+            <h3 className='text-gray-200 text-[16px] truncate'>{name}</h3>
             <button
                 className={`${subscribedDynamic ? 'bg-gray-800 text-gray-200' : 'bg-gray-300'} 
-                    hover:bg-white/40 transition-colors px-4 py-2 rounded-[10px] font-medium md-mobile:ml-auto`}
+                    hover:bg-white/40 transition-colors px-4 py-2 rounded-[18px] font-medium md-mobile:ml-auto`}
                 onClick={() => subscribeThat({userId, method : methodReq})}>
                 { subscribedDynamic ?  'Отписаться' : 'Подписаться' }
             </button>

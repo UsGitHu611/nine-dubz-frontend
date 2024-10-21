@@ -2,12 +2,12 @@ import {MobileBottomPanelHeader} from "@modules/movieDetail/components/mobilePan
 import {
     MobileBottomPanelFooter
 } from "@modules/movieDetail/components/mobileBottomPanelFooter/MobileBottomPanelFooter.jsx";
-import {useRef, useState} from "react";
 import {useSwipeCommentPanel} from "@modules/movieDetail/hook/useSwipeCommentPanel.js";
 
 
 const MobileCommentPanel = ({showMobileBottomPanel, setShowMobileBottomPanel, children}) => {
     const swipePanel = useSwipeCommentPanel({setShowMobileBottomPanel});
+
     return (
         <div
             ref={swipePanel.panelRef}

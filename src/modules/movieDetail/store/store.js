@@ -163,7 +163,7 @@ export const movieDetailStore = create((set, get) => ({
         try {
             const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/subscription/${userId}`, {
                 method,
-                credentials: "include",
+                credentials: "include"
             });
             return await response.json();
         }catch (e) {

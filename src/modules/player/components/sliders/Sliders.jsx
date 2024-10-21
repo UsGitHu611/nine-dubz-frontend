@@ -26,7 +26,7 @@ export function Volume() {
 export function Time({thumbnails}) {
     return (
         <TimeSlider.Root
-            className="time-slider group relative mx-[7.5px] inline-flex h-7 md-mobile:h-5 w-full cursor-pointer touch-none select-none items-center outline-none">
+            className="time-slider group relative mx-[7.5px] md-mobile:mx-auto inline-flex h-7 md-mobile:h-5 w-full cursor-pointer touch-none select-none items-center outline-none text-gray-200/90">
             <TimeSlider.Chapters className="relative flex h-full w-full items-center rounded-[1px]">
                 {(cues, forwardRef) =>
                     cues.map((cue) => (
@@ -37,7 +37,7 @@ export function Time({thumbnails}) {
                             ref={forwardRef}
                         >
                             <TimeSlider.Track
-                                className="relative ring-media-focus z-0 h-[5px] w-full rounded-sm bg-white/30 group-data-[focus]:ring-[3px]">
+                                className="relative ring-media-focus z-0 h-[5px] md-mobile:h-1 w-full rounded-sm bg-white/30 group-data-[focus]:ring-[3px]">
                                 <TimeSlider.TrackFill
                                     className="bg-media-brand absolute h-full w-[var(--chapter-fill)] rounded-sm will-change-[width]"/>
                                 <TimeSlider.Progress

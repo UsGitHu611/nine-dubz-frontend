@@ -48,6 +48,7 @@ function customVariants({ addVariant, matchVariant }) {
   matchVariant('parent-data', (value) => `.parent[data-${value}] > &`);
   matchVariant('neighbor-variant', (value) => `&[${value}] ~ #${value}`);
 
+  addVariant('freeze-child', ['& > *']);
   addVariant('hocus', ['&:hover', '&:focus-visible']);
   addVariant('drag', ['&[drag]']);
   addVariant('group-hocus', ['.group:hover &', '.group:focus-visible &']);

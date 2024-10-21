@@ -4,7 +4,7 @@ export const PictureOrSavingLetter = ({ userPicture, userName }) => {
         <>
             { userPicture ? (
                 <img
-                    className='w-8 h-8 object-cover rounded-full self-start pointer-events-none'
+                    className='w-8 h-8 object-cover rounded-full pointer-events-none'
                     src={`${import.meta.env.VITE_DEV_URL}/api/file/${userPicture}`}
                     alt="user-avatar"/>
             ) : (

@@ -15,10 +15,26 @@ export function VideoLayout({ thumbnails }) {
                 w-full flex-col bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity`}
             >
                 <div className="flex-1" />
-                <Controls.Group className="flex w-full items-center px-2">
+                <Controls.Group className="flex w-full items-center px-2 md-mobile:hidden">
                     <Sliders.Time thumbnails={thumbnails} />
                 </Controls.Group>
-                <Controls.Group className="-mt-0.5 flex w-full items-center px-2 pb-2">
+                <Controls.Group className={`
+                    hidden md-mobile:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+                `}>
+                    <Buttons.Play tooltipPlacement="top start" />
+                </Controls.Group>
+                <Controls.Group className={`
+                    hidden md-mobile:block mx-4 mb-1`}>
+                    <div className='flex justify-between items-center max-h-6'>
+                        <TimeGroup />
+                        <Buttons.Fullscreen tooltipPlacement="top end" />
+                    </div>
+                    <Sliders.Time thumbnails={thumbnails} />
+                </Controls.Group>
+                <Controls.Group className={`hidden md-mobile:block absolute top-0 right-[12px]`}>
+                    <Menus.Settings placement="top left" tooltipPlacement="top" />
+                </Controls.Group>
+                <Controls.Group className="md-mobile:hidden -mt-0.5 flex w-full items-center px-2 pb-2">
                     <Buttons.Play tooltipPlacement="top start" />
                     <Buttons.Mute tooltipPlacement="top" />
                     <Sliders.Volume />
