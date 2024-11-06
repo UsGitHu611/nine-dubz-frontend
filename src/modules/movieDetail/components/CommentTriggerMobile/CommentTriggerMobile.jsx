@@ -13,9 +13,7 @@ export const CommentTriggerMobile = ({ setShowMobileBottomPanel }) => {
                 Комметарии {commentListContext.commentListSource?.length}
             </p>
             <div className='flex items-center gap-2'>
-                <PictureOrSavingLetter
-                    userPicture={commentListContext.commentListSource?.at(-1).userPicture}
-                    userName={commentListContext.commentListSource?.at(-1).title}/>
+                <PictureOrSavingLetter/>
                 <p className='text-gray-200 text-[12px] line-clamp-2 break-all'>
                     {commentListContext.commentListSource?.at(-1).description}
                 </p>

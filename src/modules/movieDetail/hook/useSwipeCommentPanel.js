@@ -31,7 +31,7 @@ export const useSwipeCommentPanel = ({setShowMobileBottomPanel}) => {
             setShowMobileBottomPanel(false);
         }
         panelRef.current.classList.remove("drag");
-        event.target.classList.remove("drag-zone");
+        panelRef.current.classList.remove("drag-zone");
         panelRef.current.style.transform = `translateY(0)`;
         panelRef.current.style.opacity = `1`;
         setDifferenceY(0);

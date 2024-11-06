@@ -67,11 +67,6 @@ export const movieDetailStore = create((set, get) => ({
                     commentList : {
                         ['a' + id] : data,
                         ...prev.commentList,
-                    }
-                }))
-                set(prev => ({
-                    commentList : {
-                        ...prev.commentList,
                         commentsCount: prev.commentList.commentsCount + 1
                     }
                 }))
@@ -155,18 +150,6 @@ export const movieDetailStore = create((set, get) => ({
             }
             return data;
         } catch (e) {
-            console.log(e.message)
-        }
-    },
-
-    subscribe : async ({userId, method}) => {
-        try {
-            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/subscription/${userId}`, {
-                method,
-                credentials: "include"
-            });
-            return await response.json();
-        }catch (e) {
             console.log(e.message)
         }
     }

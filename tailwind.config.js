@@ -30,6 +30,9 @@ export default {
       },
       animation : {
         'mobile-menu': 'mobile-menu .3s ease-in-out'
+      },
+      content: {
+        'link-icon' : "url(@/assets/img/check.svg)"
       }
     },
 
@@ -39,18 +42,42 @@ export default {
     require('@vidstack/react/tailwind.cjs')({
       prefix: 'media',
     }),
-    customVariants,
-  ],
-
+    customVariants
+  ]
 }
 
-function customVariants({ addVariant, matchVariant }) {
+function customVariants({ addVariant, matchVariant, addComponents, matchUtilities }) {
   matchVariant('parent-data', (value) => `.parent[data-${value}] > &`);
   matchVariant('neighbor-variant', (value) => `&[${value}] ~ #${value}`);
+  matchVariant('clamp', (value) => {
+    let [min,preferred,max] = value.split(",");
+    return `clamp(${min},${preferred},${max})`;
+  });
+
+  matchUtilities({
+    transform: (value) => {
+      let [rotateX, rotateY] = value.split(",");
+      return {
+        transform : `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+      }
+    }
+  })
+
+  addComponents({
+    '.div-center': {
+      position: 'absolute',
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%,-50%)"
+    }
+  })
 
   addVariant('freeze-child', ['& > *']);
   addVariant('hocus', ['&:hover', '&:focus-visible']);
   addVariant('drag', ['&[drag]']);
   addVariant('group-hocus', ['.group:hover &', '.group:focus-visible &']);
+  addVariant('no-hover', ['@media(hover:none){&:hover}']);
+  addVariant('check', ['&:has(*:checked)>img'])
+  addVariant('parent-to-children', ['&:hover>*:first-child'])
 }
 

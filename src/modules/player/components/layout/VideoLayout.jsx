@@ -31,7 +31,7 @@ export function VideoLayout({ thumbnails }) {
                     </div>
                     <Sliders.Time thumbnails={thumbnails} />
                 </Controls.Group>
-                <Controls.Group className={`hidden md-mobile:block absolute top-0 right-[12px]`}>
+                <Controls.Group className={`hidden md-mobile:block absolute top-3 right-3`}>
                     <Menus.Settings placement="top left" tooltipPlacement="top" />
                 </Controls.Group>
                 <Controls.Group className="md-mobile:hidden -mt-0.5 flex w-full items-center px-2 pb-2">
@@ -40,9 +40,11 @@ export function VideoLayout({ thumbnails }) {
                     <Sliders.Volume />
                     <TimeGroup />
                     <div className="flex-1" />
-                    <Menus.Settings placement="top left" tooltipPlacement="top" />
-                    <Buttons.PIP tooltipPlacement="top" />
-                    <Buttons.Fullscreen tooltipPlacement="top end" />
+                    <div className='flex items-center gap-1'>
+                        <Menus.Settings placement="top left" tooltipPlacement="top" />
+                        <Buttons.PIP tooltipPlacement="top" />
+                        <Buttons.Fullscreen tooltipPlacement="top end" />
+                    </div>
                 </Controls.Group>
             </Controls.Root>
         </>

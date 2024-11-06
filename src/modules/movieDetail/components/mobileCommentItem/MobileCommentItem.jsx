@@ -2,12 +2,11 @@ import {TitleComment} from "@modules/movieDetail/components/title/TitleComment.j
 import {PictureOrSavingLetter} from "@components/pictureOrSavingLetter/PictureOrSavingLetter.jsx";
 import {lazy, useState} from "react";
 import {useSwipeComment} from "@modules/movieDetail/hook/useSwipeAction.js";
-import {DeleteFilled} from "@ant-design/icons";
-import {ReplyButton} from "@components/replyButton/ReplyButton.jsx";
+import {DeleteFilled, EnterOutlined} from "@ant-design/icons";
 
 const MobileRelyPanel = lazy(() => import('@modules/movieDetail/components/mobileReplyPanel/MobileRelyPanel.jsx'))
 
-export const MobileCommentItem = ({ userPicture, title, description, createdAt, subCommentsCount, commentId, userId }) => {
+export const MobileCommentItem = ({ title, description, createdAt, subCommentsCount, commentId, userId }) => {
     const commIntl = new Intl.PluralRules('ru');
     const commIntlVariant = { one : 'Ответ', few : 'Ответа', many : 'Ответов' };
     const [isOpenMobileRelyPanel, setIsOpenMobileRelyPanel] = useState(false);
@@ -20,7 +19,7 @@ export const MobileCommentItem = ({ userPicture, title, description, createdAt, 
         >
 
             <div className='p-5 flex gap-2 items-center py-3 duration-100 drag:bg-white/5 touch-none'>
-                <PictureOrSavingLetter userPicture={userPicture} userName={title}/>
+                <PictureOrSavingLetter />
 
                 <div className='flex flex-col gap-2 flex-grow pointer-events-none'>
                     <div className='flex flex-col w-full'>
@@ -50,7 +49,7 @@ export const MobileCommentItem = ({ userPicture, title, description, createdAt, 
             <div id='reply' className='scale-0 transition-transform
                 absolute top-0 left-[4%] bottom-0 pointer-events-none
                 flex justify-center items-center'>
-                <ReplyButton w={20} h={20}/>
+                <EnterOutlined className='transform-[180,360]'/>
             </div>
 
             <MobileRelyPanel

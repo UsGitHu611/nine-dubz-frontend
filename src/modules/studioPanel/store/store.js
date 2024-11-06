@@ -26,12 +26,10 @@ export const studioStore = create((set, get) => ({
     setIsLoadFile: (bool) => set({isLoadFile: bool}),
     setShowModal : (bool) => set({ showModal : bool }),
     setIsConnected: (bool) => set({ isConnected: bool }),
-    setAllMovies: (movies) => set({ allMovies: movies }),
     setFilePos: (pos) => set(prev =>({ filePos: prev.filePos + pos })),
 
-    createMovie : async (action) => {
+    createMovie : async (file) => {
         try {
-            const file = action.file;
             const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/user`,{
                 method: "POST",
                 credentials: "include",
@@ -118,19 +116,6 @@ export const studioStore = create((set, get) => ({
             const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/user/${code}`,{
                 method: "DELETE",
                 credentials: "include",
-            })
-            return await response.json();
-        }catch (e) {
-            console.log(e.message)
-        }
-    },
-
-    deleteAllMovieStudio: async (movies) => {
-        try {
-            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/user/multiple`,{
-                method: "DELETE",
-                credentials: "include",
-                body: JSON.stringify(movies)
             })
             return await response.json();
         }catch (e) {

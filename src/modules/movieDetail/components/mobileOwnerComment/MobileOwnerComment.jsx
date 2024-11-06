@@ -7,10 +7,7 @@ export const MobileOwnerComment = ({ parentId }) => {
 
     return (
         <li className='p-3 flex gap-2 items-center bg-white/10'>
-            {/*<PictureOrSavingLetter*/}
-            {/*    userPicture={ownerComment?.user?.picture?.name}*/}
-            {/*    userName={ownerComment?.user?.name}*/}
-            {/*/>*/}
+            <PictureOrSavingLetter/>
             <div className='flex flex-col w-full'>
                 <TitleComment title={ownerComment?.user?.name} createdAt={ownerComment?.createdAt}/>
                 <p className='text-gray-200 text-[13px] break-all pr-8'>

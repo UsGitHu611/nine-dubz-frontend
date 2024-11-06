@@ -5,7 +5,6 @@ import {Movie} from "@pages/movie/Movie.jsx";
 import {NotFound} from "@pages/notFound/NotFound.jsx";
 import {EditMovie} from "@pages/editMovie/EditMovie.jsx";
 import {lazy, Suspense} from "react";
-import {Channel} from "@modules/channel/Channel.jsx";
 
 
 const SignUp = lazy(() => import('@pages/signUp/SignUp'));
@@ -33,21 +32,8 @@ export const router = createBrowserRouter([
                     const response = fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/${movieCode}`, {
                         credentials : "include"
                     });
-                    return defer({ response: (await response).json()});
+                    return defer({ response: (await response).json()})
                 }
-            },
-            {
-                path : "/channel/:channelId",
-                element: <Channel/>,
-                loader : async ({ params }) => {
-                    const { channelId } = params;
-                    console.log(channelId)
-                    const response = fetch(`${import.meta.env.VITE_DEV_URL}/api/movie/channel/${channelId}`, {
-                        credentials : "include"
-                    });
-                    return defer({ response: (await response).json()});
-                }
-
             },
             {
                 path: "/signup",

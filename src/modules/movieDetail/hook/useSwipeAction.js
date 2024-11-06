@@ -75,9 +75,9 @@ export const useSwipeComment = ({ parentId, commentId, userId }) => {
         comRef.current.addEventListener("touchend", onTouchEnd);
 
         return () => {
-            comRef.current.removeEventListener("touchstart", onTouchStart);
-            comRef.current.removeEventListener("touchmove", onTouchMove);
-            comRef.current.removeEventListener("touchend", onTouchEnd);
+            comRef.current?.removeEventListener("touchstart", onTouchStart);
+            comRef.current?.removeEventListener("touchmove", onTouchMove);
+            comRef.current?.removeEventListener("touchend", onTouchEnd);
         }
     },[])
 

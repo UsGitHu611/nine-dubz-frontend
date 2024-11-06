@@ -2,82 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer drop-zone
+
 :root {
     --media-brand: 245 245 245;
     --media-focus: 78 156 246;
 }
 
+body{
+    overflow-x: hidden;
+    position: absolute;
+    inset: 0;
+    background: rgb(17 24 39);
+}
+
+
+body:has(dialog[open]){
+    overflow: hidden;
+}
+
+#root{
+    min-height: 100%;
+}
+
+header{
+    flex-grow: 1;
+}
+
+main{
+    flex-grow: 2;
+    min-height: 100%;
+}
 
 .scroll-lock{
     overflow: hidden;
 }
 
-.ant-input-textarea-show-count:has(#replyPanel) .ant-input-data-count{
-    top: 4px;
+#upload{
+    position: fixed;
+    inset: 0;
+    transform-origin: right top;
+    transition: transform .4s, opacity .4s, display .4s allow-discrete;
 }
 
-.ant-input-textarea-show-count:has(#replyPanel) #replyPanel{
-    padding-right: 80px;
+
+#upload::backdrop{
+    background: rgb(0 0 0 / 70%);
 }
 
-.ant-collapse-header-text{
-    overflow: hidden;
+#upload:not(:has([open])){
+    opacity: 0;
+    transform: scale(0);
+    transition: transform .4s, opacity .4s, display .4s allow-discrete;
 }
 
-.ant-modal-content:has(.ant-modal-confirm-body-wrapper){
-    background: #292a2e;
+
+#upload[open]{
+    opacity: 1;
+    transform: scale(1);
 }
 
-.ant-modal-confirm-btns > .ant-btn-default,
-.ant-modal-confirm-btns > .ant-btn-primary{
-    background-color: rgba(255,255,255,0.05);
-    border-color: rgba(255,255,255,0.05);
-    color: rgb(229 231 235);
-    box-shadow: none;
+
+@supports (transition-behavior: allow-discrete) {
+    @starting-style{
+        #upload[open]{
+            opacity: 0;
+            transform: scale(0);
+        }
+    }
 }
 
-.ant-table-row.ant-table-row-level-0 > td:last-child{
-    cursor: pointer;
-    overflow: hidden;
-}
-
-.ant-table-row.ant-table-row-level-0 > td:last-child > span{
-    display: block;
-    transform: translateX(140%);
-    transition: transform .4s;
-}
-
-.ant-table-row.ant-table-row-level-0 > td:last-child:hover span{
-    transform: translateX(0);
-}
-
-.ant-table-row.ant-table-row-level-0 > td:last-child:hover,
-.ant-table-row.ant-table-row-level-0.ant-table-row-selected > td:last-child:hover{
-    background: linear-gradient(280deg, rgba(255,255,255,0.05), rgba(255,0,7,0.40));
-}
-
-.ant-input-affix-wrapper{
-    border-bottom: 1px solid rgba(229, 231, 235, 10%);
-}
-
-.ant-input-affix-wrapper-focused{
-    border-bottom: 1px solid #fff;
-}
 
 .player {
     container-name: media-player;
     container-type: inline-size;
-}
-
-.ant-skeleton-content {
-    .ant-skeleton-paragraph:first-child li {
-        background-image: linear-gradient(
-                90deg,
-                rgb(75 85 99 / 0.1),
-                rgb(107 114 128 / 0.1),
-                rgb(75 85 99 / 0.1)
-        ) !important;
-    }
 }
 
 .drag{

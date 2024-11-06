@@ -30,7 +30,7 @@ export const PlayerVideo = ({ code, vtt, preview, defaultPreview, videos }) => {
         <MediaPlayer
             className='aspect-video bg-slate-950
             text-white font-sans rounded-md md-mobile:rounded-none ring-media-focus data-[focus]:ring-4
-            relative overflow-hidden'
+            relative overflow-hidden w-full'
             title="Sprite Fight"
             crossOrigin
             playsInline
@@ -42,7 +42,7 @@ export const PlayerVideo = ({ code, vtt, preview, defaultPreview, videos }) => {
             <BufferingIndicator/>
             <MediaProvider>
                 <Poster
-                    className="absolute inset-0 block h-full w-full rounded-md opacity-0 transition-opacity data-[visible]:opacity-100 object-cover"
+                    className="absolute inset-0 block w-full aspect-video rounded-md object-cover opacity-0 transition-opacity data-[visible]:opacity-100"
                     src={`${import.meta.env.VITE_DEV_URL}/api/file/${preview?.name || defaultPreview?.name}`}
                     alt="joker"
                 />

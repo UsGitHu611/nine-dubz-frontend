@@ -9,13 +9,13 @@ export const MobileBottomPanelFooter = ({ placeholder, panelType, parentId }) =>
     const commentListContext = useContext(MobileCommentContext);
     const dialogRef = useRef(null);
     const [form] = Form.useForm();
-    const { addComment, addReply } = useComment();
+    const actionComment = useComment();
 
     const finishHandler = (body) => {
         if(panelType === 'comment'){
-            addComment({...body, code : commentListContext.code});
+            actionComment.addComment({...body, code : commentListContext.code});
         }
-        addReply({code : commentListContext.code, parentId, ...body})
+        actionComment.addReply({code : commentListContext.code, parentId, ...body})
         form.resetFields();
     }
 
@@ -27,7 +27,7 @@ export const MobileBottomPanelFooter = ({ placeholder, panelType, parentId }) =>
                 <Form.Item className='grow mb-0' name={panelType}>
                     <Input.TextArea
                         onFocus={() => {
-                            dialogRef.current.showModal()
+                            dialogRef.current.showModal();
                             document.body.classList.add('scroll-lock')
                         }}
                         onBlur={() => {

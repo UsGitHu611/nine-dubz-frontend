@@ -23,8 +23,8 @@ import {CompressOutlined, ExpandOutlined} from "@ant-design/icons";
 
 export const buttonClass =
     '' +
-    'relative inline-flex w-10 aspect-square cursor-pointer items-center md-mobile:w-full' +
-    'justify-center rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4' +
+    'relative w-8 aspect-square cursor-pointer md-mobile:w-full' +
+    'md-mobile:block rounded-md outline-none ring-inset hover:bg-white/20 data-[focus]:ring-4' +
     '';
 
 export const tooltipClass =
@@ -97,11 +97,11 @@ export function Fullscreen({ tooltipPlacement }) {
     return (
         <Tooltip.Root>
             <Tooltip.Trigger asChild>
-                <FullscreenButton className={buttonClass + " justify-end"}>
+                <FullscreenButton className={buttonClass}>
                     {isActive ? (
-                        <CompressOutlined className="w-8 h-8 justify-center" />
+                        <CompressOutlined />
                     ) : (
-                        <ExpandOutlined className="w-8 h-8 justify-center" />
+                        <ExpandOutlined />
                     )}
                 </FullscreenButton>
             </Tooltip.Trigger>

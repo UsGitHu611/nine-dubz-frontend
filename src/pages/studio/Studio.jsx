@@ -2,7 +2,7 @@ import StudioPanel from "@modules/studioPanel/StudioPanel.jsx";
 
 const Studio = () => {
     return (
-        <section className='mx-auto'>
+        <section className='flex justify-center min-h-full'>
             <StudioPanel/>
         </section>
     )

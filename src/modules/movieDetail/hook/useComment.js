@@ -9,7 +9,10 @@ export const useComment = () => {
 
     const { mutate : addComment } = useMutation({
         mutationKey: ['addComment'],
-        mutationFn: (body) => addCommentReq(body)
+        mutationFn: (body) => {
+            if(!body.comment.trim()) return;
+           return addCommentReq(body)
+        }
     });
 
     const { mutate : deleteComment } = useMutation({

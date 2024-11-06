@@ -11,8 +11,7 @@ export function Settings({ placement, tooltipPlacement }) {
                 <Tooltip.Trigger asChild>
                     <Menu.Button className={buttonClass}>
                         <SettingOutlined className={`
-                            w-full text-xl justify-center aspect-square transform
-                            transition-transform duration-200 ease-out group-data-[open]:rotate-90
+                            aspect-square text-lg transform flex justify-center
                         `} />
                     </Menu.Button>
                 </Tooltip.Trigger>
@@ -21,8 +20,8 @@ export function Settings({ placement, tooltipPlacement }) {
                 </Tooltip.Content>
             </Tooltip.Root>
             <Menu.Content className='animate-out fade-out data-[open]:animate-in data-[open]:fade-in-10 flex h-[var(--menu-height)]
-            max-h-[400px] md-mobile:max-h-[440px] md-mobile:minw-w-[140px] md-mobile:text-[17px] min-w-[130px] flex-col rounded-md border border-none
-             bg-black/85 p-2.5 font-sans text-[15px] font-medium outline-none backdrop-blur-sm transition-[height]
+            max-h-[400px] md-mobile:max-h-[440px] md-mobile:min-w-[100px] min-w-[130px] flex-col rounded-md
+             bg-black/85 p-2.5 font-sans md-mobile:text-xs font-medium outline-none backdrop-blur-sm transition-[height]
             duration-200 will-change-[height] data-[resizing]:overflow-hidden cursor-pointer' placement={placement}>
                 <Menu.RadioGroup value={options.selectedValue}>
                     {options.map(({ value, select, quality }) => (

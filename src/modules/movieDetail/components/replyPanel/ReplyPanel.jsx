@@ -1,38 +1,31 @@
-import {Flex, Input, Button, ConfigProvider, Avatar, Form} from "antd";
+import {Form} from "antd";
 import {useComment} from "@modules/movieDetail/hook/useComment.js";
+import {PictureOrSavingLetter} from "@components/pictureOrSavingLetter/PictureOrSavingLetter.jsx";
+import {TextArea} from "@components/textarea/TextArea.jsx";
+import {Button} from "@components/button/Button.jsx";
 
 export const ReplyPanel = ({ code, parentId, setShowReplyPanel }) => {
     const [form] = Form.useForm();
-    const { addReply } = useComment();
+    const actionComment = useComment();
 
     const finishHandler = ({ text }) => {
         if(!text) return;
-        addReply({code, parentId, text});
+        actionComment.addReply({code, parentId, text});
         form.resetFields();
     }
 
     return (
-        <ConfigProvider theme={{
-            components: { Input: { paddingInline: 0, borderRadius: "0" } }
-        }}>
-            <Form onFinish={finishHandler} form={form} className='pt-2 flex flex-col gap-2'>
-                <Form.Item className='mb-0' name='text'>
-                    <Flex gap={6}>
-                        <Avatar/>
-                        <Input.TextArea
-                            id='replyPanel'
-                            showCount
-                            autoSize={{minRows: 1}}
-                            maxLength={5000}
-                            placeholder="Ответ"
-                            variant="borderless" />
-                    </Flex>
-                </Form.Item>
-                <Flex justify='end' gap={5}>
-                    <Button onClick={() => setShowReplyPanel(false)}>Отмена</Button>
-                    <Button htmlType='submit'>Ответить</Button>
-                </Flex>
-            </Form>
-        </ConfigProvider>
+        <Form onFinish={finishHandler} form={form} className='pt-2 flex flex-col gap-2'>
+            <Form.Item className='mb-0' name='text'>
+                <div className='flex gap-1.5'>
+                    <PictureOrSavingLetter/>
+                    <TextArea showCounter name='text' maxLength={5000} placeholder='Введите ваш комментарий...'/>
+                </div>
+            </Form.Item>
+            <div className='flex justify-end gap-1.5'>
+                <Button styles='px-5 py-2' onClick={() => setShowReplyPanel(false)}>Отмена</Button>
+                <Button styles='px-5 py-2' htmlType='submit'>Ответить</Button>
+            </div>
+        </Form>
     )
 }
