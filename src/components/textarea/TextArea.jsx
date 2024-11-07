@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export const TextArea = ({ maxLength, placeholder, name, showCounter, autoFocus }) => {
+export const TextArea = ({ maxLength, placeholder, name, showCounter, autoFocus, rows=1 }) => {
     const [countWord, setCountWord] = useState(0);
 
     const autoResize = (evt) => {
@@ -19,10 +19,10 @@ export const TextArea = ({ maxLength, placeholder, name, showCounter, autoFocus 
                 maxLength={maxLength}
                 placeholder={placeholder}
                 name={name}
-                rows={1}
+                rows={rows}
             ></textarea>
             { showCounter && (
-                <span className='absolute right-0 top-1/2 -translate-y-1/2 text-gray-200/50'>
+                <span className='absolute right-0 bottom-0 -translate-y-1/2 text-gray-200/50'>
                     {countWord}/{maxLength}
                 </span>
             ) }

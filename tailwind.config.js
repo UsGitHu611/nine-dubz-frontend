@@ -72,6 +72,14 @@ function customVariants({ addVariant, matchVariant, addComponents, matchUtilitie
     }
   })
 
+  addComponents({
+    '.allow-discrete': {
+      "transition-behavior": "allow-discrete"
+    }
+  })
+
+
+
   addVariant('freeze-child', ['& > *']);
   addVariant('hocus', ['&:hover', '&:focus-visible']);
   addVariant('drag', ['&[drag]']);
@@ -79,5 +87,6 @@ function customVariants({ addVariant, matchVariant, addComponents, matchUtilitie
   addVariant('no-hover', ['@media(hover:none){&:hover}']);
   addVariant('check', ['&:has(*:checked)>img'])
   addVariant('parent-to-children', ['&:hover>*:first-child'])
+  addVariant('starting-style', ['@starting-style'])
 }
 

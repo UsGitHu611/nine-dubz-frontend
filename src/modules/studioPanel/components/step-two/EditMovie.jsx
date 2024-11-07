@@ -1,11 +1,14 @@
 import {useUploadFile} from "@modules/studioPanel/hook/useUploadFile.js";
-import {Form, Input, Upload, Button, App} from "antd";
+import {Upload} from "antd";
 import FormItem from "antd/es/form/FormItem";
-import {PlusOutlined} from "@ant-design/icons";
+import {CloudUploadOutlined, PlusOutlined} from "@ant-design/icons";
 import {studioStore} from "@modules/studioPanel/store/store.js";
 import {useMutation} from "@tanstack/react-query";
 import {useShallow} from "zustand/react/shallow";
-import {useTranslate} from "@modules/menu/hook/useTranslate.js";
+import {TextArea} from "@components/textarea/TextArea.jsx";
+import FormComponent from "@components/form/Form.jsx";
+import {Button} from "@components/button/Button.jsx";
+import {CoolUploadFile} from "@components/coolUploadFile/CoolUploadFile.jsx";
 
 export const EditMovie = () => {
     useUploadFile();
@@ -29,92 +32,63 @@ export const EditMovie = () => {
             createMovieInfo: state.createMovieInfo,
         }))
     )
-    const [form] = Form.useForm();
     const percent = Math.round((filePos / fileSize) * 100);
-    const { notification } = App.useApp();
-    const {t} = useTranslate();
 
 
     const { mutate } = useMutation({
         mutationKey: ['editMovie'],
         mutationFn: (formData) => createMovieInfo(formData),
         onSuccess : () => {
-            notification.success({
-                message: t('successAddTitle'),
-                description: t('successAddDescription')
-            })
             setCurrentStep(0);
             setShowModal(false);
         }
     })
 
-    const onFinish = (data) => {
-        const formData = new FormData();
-        for (const fieldData in data) {
-            formData.set(fieldData, data[fieldData] || "")
+    const onFinish = (evt) => {
+        evt.preventDefault();
+        const formData = new FormData(evt.target);
+        if(!formData.get("description").trim().length){
+            formData.set("description", "Тут не будет никакого описания, ведь я чмо без фантазии")
         }
        mutate(formData);
     }
 
     return (
-        <Form
+        <form
+            className='flex flex-col justify-between h-full'
             encType='multipart/form-data'
-            className='pt-5'
-            form={form}
-            initialValues={{ name: file.name }}
-            onFinish={onFinish}
-            layout='vertical'>
-
-            <FormItem
-                label='Название'
-                rules={[ { required: true, message: "Даб-Даб!!!" } ]}
-                name='name'>
-                <Input.TextArea
-                    name='name'
-                    showCount
-                    placeholder='сааабтайтз бай диматорзок'
-                    autoSize={{ minRows: 2, maxRows: 2 }}
-                    maxLength={130}/>
-            </FormItem>
-
-            <FormItem
-                label='Описание'
-                name='description'>
-                <Input.TextArea
-                    name='description'
-                    placeholder='сааабтайтз бай диматорзок'
-                    autoSize={{ minRows: 5 }}
-                    showCount
-                    maxLength={5000}/>
-            </FormItem>
+            onSubmit={onFinish}>
 
 
-            <FormItem
-                    valuePropName='file'
-                    getValueFromEvent={(event) => {
-                        return event?.file.originFileObj;
-                    }}
-                    label='Превью'
-                    name='preview'>
-                <Upload
-                    customRequest={({ onSuccess }) => onSuccess('ok')}
-                    listType='picture-card'
-                    maxCount={1}>
-                    <PlusOutlined className='text-gray-200'/>
-                </Upload>
-            </FormItem>
+            <FormComponent.Item label='Название' name='name'>
+                <TextArea
+                    autoFocus={true}
+                    maxLength={130}
+                    placeholder='сааабтайтз бай диматорзок'/>
+            </FormComponent.Item>
 
-            <FormItem className='flex justify-end mb-0'>
-                <Button size='large' disabled={!isLoadFile} htmlType="submit">
-                    Отправить
-                </Button>
-            </FormItem>
 
-            <FormItem>
+            <FormComponent.Item label='Описание' name='description'>
+                <TextArea
+                    maxLength={5000}
+                    showCounter={true}
+                    rows={4}
+                    placeholder='сааабтайтз бай диматорзок'/>
+            </FormComponent.Item>
+
+
+            <FormComponent.Item label='Превью' name='preview'>
+                <CoolUploadFile/>
+            </FormComponent.Item>
+
+            <div className='flex justify-between items-center'>
                 <code className='text-gray-200 text-lg'>
                     Загруженно: {percent}%...
                 </code>
-            </FormItem>
-        </Form>
+                <Button disabled={!isLoadFile} styles='px-6 py-3' icon={<CloudUploadOutlined />}>
+                    Отправить
+                </Button>
+            </div>
+        </form>
     )
 }

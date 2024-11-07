@@ -10,7 +10,7 @@ const Form = ({ onSubmit, children, styles }) => {
 }
 
 
-const Item = ({ label, name, children, styles }) => {
+const Item = ({ label, name, children, styles, required=false }) => {
 
     const addPropsToInputs = (children) => {
 
@@ -25,7 +25,9 @@ const Item = ({ label, name, children, styles }) => {
 
     return (
         <label className={`flex flex-col gap-1 text-gray-200 ${styles}`} htmlFor={label} name={name}>
-            <span>{ label }</span>
+            <span className={`self-start relative after:content-['‼'] after:absolute after:-right-3 after:opacity-0 ${required ? 'after:opacity-100' : ''} `}>
+                { label } :
+            </span>
             {addPropsToInputs(children)}
         </label>
     )
