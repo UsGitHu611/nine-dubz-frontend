@@ -49,6 +49,7 @@ export default {
 function customVariants({ addVariant, matchVariant, addComponents, matchUtilities }) {
   matchVariant('parent-data', (value) => `.parent[data-${value}] > &`);
   matchVariant('neighbor-variant', (value) => `&[${value}] ~ #${value}`);
+  matchVariant('child', (value) => `& > #${value}`);
   matchVariant('clamp', (value) => {
     let [min,preferred,max] = value.split(",");
     return `clamp(${min},${preferred},${max})`;

@@ -6,10 +6,9 @@ export const TopPanel = () => {
     const setShowModal = studioStore(state => state.setShowModal);
 
     return (
-        <div className='flex items-center gap-[6px]'>
-            <Button onClick={() => setShowModal(true)} icon={<PlusOutlined />} styles='py-2 px-5'>
-                Добавить
-            </Button>
-        </div>
+        <Button
+            onClick={() => setShowModal(true)}
+            icon={<PlusOutlined />}
+            styles='py-5 px-5 self-start'/>
     )
 }

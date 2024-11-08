@@ -43,7 +43,7 @@ const StudioPanel = () => {
     // };
 
     return (
-        <div className='flex flex-col gap-4 items-end justify-center'>
+        <div className='flex gap-4 flex-row-reverse items-center '>
             <TopPanel />
             <Modal setShowModal={setShowModal} showModal={showModal} width={900}>
                 <Steps

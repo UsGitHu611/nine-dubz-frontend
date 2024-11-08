@@ -2,7 +2,7 @@ import {MovieDetail} from "@modules/movieDetail/MovieDetail.jsx";
 
 export const Movie = () => {
     return (
-        <section className='mx-auto'>
+        <section className='w-full'>
             <MovieDetail/>
         </section>
     )

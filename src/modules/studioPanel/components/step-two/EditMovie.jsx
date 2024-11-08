@@ -1,7 +1,5 @@
 import {useUploadFile} from "@modules/studioPanel/hook/useUploadFile.js";
-import {Upload} from "antd";
-import FormItem from "antd/es/form/FormItem";
-import {CloudUploadOutlined, PlusOutlined} from "@ant-design/icons";
+import {CloudUploadOutlined} from "@ant-design/icons";
 import {studioStore} from "@modules/studioPanel/store/store.js";
 import {useMutation} from "@tanstack/react-query";
 import {useShallow} from "zustand/react/shallow";

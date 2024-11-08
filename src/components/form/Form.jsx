@@ -26,7 +26,7 @@ const Item = ({ label, name, children, styles, required=false }) => {
     return (
         <label className={`flex flex-col gap-1 text-gray-200 ${styles}`} htmlFor={label} name={name}>
             <span className={`self-start relative after:content-['‼'] after:absolute after:-right-3 after:opacity-0 ${required ? 'after:opacity-100' : ''} `}>
-                { label } :
+                { label }
             </span>
             {addPropsToInputs(children)}
         </label>

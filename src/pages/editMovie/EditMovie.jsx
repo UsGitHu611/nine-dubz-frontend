@@ -3,7 +3,7 @@ import {EditMovieDetail} from "@modules/editMovie/EditMovieDetail.jsx";
 export const EditMovie = () => {
 
     return (
-        <section className='relative flex items-center mx-auto'>
+        <section className='flex items-center justify-center'>
             <EditMovieDetail/>
         </section>
     )

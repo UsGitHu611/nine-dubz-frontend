@@ -25,12 +25,8 @@ body:has(dialog[open]){
     min-height: 100%;
 }
 
-header{
-    flex-grow: 1;
-}
-
 main{
-    flex-grow: 2;
+    flex-grow: 1;
     min-height: 100%;
 }
 

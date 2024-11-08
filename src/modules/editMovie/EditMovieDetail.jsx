@@ -1,138 +1,91 @@
 import {Await, useLoaderData, useNavigate} from "react-router-dom";
-import {Suspense, useState} from "react";
-import FormItem from "antd/es/form/FormItem";
-import {App, Button, Form, Input, Select, Upload} from "antd";
-import {ArrowLeftOutlined, PlusOutlined} from "@ant-design/icons";
+import {Suspense} from "react";
+import {ArrowLeftOutlined} from "@ant-design/icons";
 import {useMutation} from "@tanstack/react-query";
 import {studioStore} from "@modules/studioPanel/store/store.js";
-import {useTranslate} from "@modules/menu/hook/useTranslate.js";
+import FormComponent from "@components/form/Form.jsx";
+import {TextArea} from "@components/textarea/TextArea.jsx";
+import {CoolUploadFile} from "@components/coolUploadFile/CoolUploadFile.jsx";
+import {Select} from "@components/select/Select.jsx";
+import {Button} from "@components/button/Button.jsx";
 
 export const EditMovieDetail = () => {
     const { response } = useLoaderData();
-    const [form] = Form.useForm();
-    const [prevPreview, setPrevPreview] = useState("");
     const updateMovieInfo = studioStore(state => state.updateMovieInfo);
-    const {t} = useTranslate();
-    const { notification } = App.useApp();
     const navigate = useNavigate();
 
     const { mutate } = useMutation({
         mutationKey: ['editMovieDetail'],
         mutationFn: (formData, movieCode) => updateMovieInfo(formData, movieCode),
         onSuccess : () => {
-            notification.success({
-                message: t('successDetailEditTitle'),
-                description: t('successDetailEditDescription')
-            })
+        //     тут будет всплывашка
         }
     })
 
 
-    const onFinish = (data, movieCode) => {
-        const formData = new FormData();
-
-        for (let dataField in data) {
-
-            if(prevPreview === data[dataField]){
-                continue;
-            }
-
-            if(!data[dataField]){
-                formData.set(dataField, 'false');
-                continue;
-            }
-
-            formData.set(dataField, data[dataField]);
-        }
-        setPrevPreview(data.preview);
+    const onFinish = (evt, movieCode) => {
+        evt.preventDefault();
+        const formData = new FormData(evt.target);
         mutate({formData, movieCode});
     }
 
     return (
         <Suspense fallback={<h3>Загрузка</h3>}>
             <Await resolve={response} errorElement={<h5>Error</h5>}>
-                { (r) => {
-                        const deadPreview = r?.preview?.name || r?.defaultPreview?.name;
+                { (response) => {
+                        const deadPreview = response?.preview?.name || response?.defaultPreview?.name;
                     return (
-                            <Form
-                                initialValues={{
-                                    name: r?.name,
-                                    description: r?.description,
-                                    isPublished: r?.isPublished,
-                                    preview: r?.preview?.name
-                                }}
+                            <form
                                 encType='multipart/form-data'
-                                className='w-[700px]'
-                                form={form}
-                                onLoad={() => setPrevPreview(r?.preview?.name)}
-                                onFinish={(d) => onFinish(d, r?.code)}
-                                layout='vertical'>
+                                className='min-w-[700px] flex flex-col gap-2'
+                                onSubmit={(event) => onFinish(event, response?.code)}>
 
-                                <FormItem label='Название' required name='name'>
-                                    <Input.TextArea
-                                        name='name'
-                                        showCount
-                                        rules={[ { required: true, message: "Даб-Даб!!!" } ]}
-                                        placeholder='сааабтайтз бай диматорзок'
-                                        autoSize={{ minRows: 2, maxRows: 2 }}
-                                        maxLength={130}/>
-                                </FormItem>
+                                <FormComponent.Item label='Название' name='name'>
+                                    <TextArea defaultValue={response.name}
+                                              showCounter={true}
+                                              autoFocus={true}
+                                              maxLength={130}/>
+                                </FormComponent.Item>
 
-                                <FormItem
-                                    label='Описание'
-                                    name='description'>
-                                    <Input.TextArea
-                                        name='description'
-                                        placeholder='сааабтайтз бай диматорзок'
-                                        autoSize={{ minRows: 5 }}
-                                        showCount
-                                        maxLength={5000}/>
-                                </FormItem>
+                                <FormComponent.Item label='Описание' name='description'>
+                                    <TextArea defaultValue={response.description}
+                                              showCounter={true}
+                                              autoFocus={true}
+                                              rows={4}
+                                              maxLength={5000}/>
+                                </FormComponent.Item>
 
-                                <FormItem
-                                    valuePropName='file'
-                                    getValueFromEvent={(event) => {
-                                        return event?.fileList[0]?.originFileObj;
-                                    }}
-                                    label='Превью'
-                                    name='preview'>
-                                    <Upload
-                                        customRequest={({ onSuccess }) => onSuccess('ok')}
-                                        listType='picture-card'
-                                        defaultFileList={ deadPreview ? [
-                                            { url: `${import.meta.env.VITE_DEV_URL}/api/file/${deadPreview}`}
-                                        ] : []}
-                                        maxCount={1}>
-                                        <PlusOutlined className='text-gray-200'/>
-                                    </Upload>
-                                </FormItem>
+                                <FormComponent.Item label='Превью' name='preview'>
+                                    <CoolUploadFile src={`${import.meta.env.VITE_DEV_URL}/api/file/${deadPreview}`}/>
+                                </FormComponent.Item>
 
-                                <FormItem name='isPublished'>
-                                    <Select showArrow={false}
-                                            variant='borderless'
-                                            popupMatchSelectWidth={155}
+
+                                <div className='flex justify-between items-center gap-1'>
+                                    <FormComponent.Item name='isPublished'>
+                                        <Select
+                                            currentStatus={response.isPublished}
+                                            code={response.code}
                                             options={[
-                                                { value: true, label: "Опубликовано" },
-                                                { value: false, label: "Не опубликовано" }
-                                            ]}
-                                    />
-                                </FormItem>
+                                                { value: true, text: "Опубликовано" },
+                                                { value: false, text: "Не опубликовано" }
+                                            ]}/>
+                                    </FormComponent.Item>
 
-                                <FormItem className='flex justify-end'>
-                                    <div className='flex justify-end items-center'>
-                                        <Button className='mr-2' onClick={() => navigate(-1)} size='large'>
-                                            <ArrowLeftOutlined />
+                                    <div className='flex items-center gap-1'>
+                                        <Button
+                                            styles='px-6 py-2.5'
+                                            onClick={() => navigate(-1)}
+                                            iconPosition="start"
+                                            icon={<ArrowLeftOutlined/>}>
                                             Назад
                                         </Button>
-                                        <Button size='large' htmlType="submit">
+                                        <Button styles='px-6 py-2.5' type='submit'>
                                             Отправить
                                         </Button>
                                     </div>
-                                </FormItem>
-
-                            </Form>
-                    )
-                } }
+                                </div>
+                            </form>
+                    )}}
             </Await>
         </Suspense>
     )
