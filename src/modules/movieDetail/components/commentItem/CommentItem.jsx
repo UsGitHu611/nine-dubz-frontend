@@ -1,20 +1,19 @@
 import {ReplyList} from "@modules/movieDetail/components/replyList/ReplyList.jsx";
 import {ReplyPanel} from "@modules/movieDetail/components/replyPanel/ReplyPanel.jsx";
-import {useRef, useState} from "react";
+import {forwardRef, useState} from "react";
 import {movieDetailStore} from "@modules/movieDetail/store/store.js";
 import {useQuery} from "@tanstack/react-query";
 import {TitleComment} from "@modules/movieDetail/components/title/TitleComment.jsx";
 import {PictureOrSavingLetter} from "@components/pictureOrSavingLetter/PictureOrSavingLetter.jsx";
 
 
-export const CommentItem = ({ code, commentItem }) => {
+export const CommentItem = forwardRef(({ code, commentItem }, ref) => {
     const [offset, setOffset] = useState(0);
     const [showMoreComment, setShowMoreComment] = useState(false);
     const [showReplyPanel, setShowReplyPanel] = useState(false);
     const [showReplyList, setShowReplyList] = useState(false);
     const getReplyReq = movieDetailStore(state => state.getReply);
     const subCommentList = movieDetailStore(state => state.subCommentList);
-
 
 
     const { isLoading, refetch } = useQuery({
@@ -28,7 +27,7 @@ export const CommentItem = ({ code, commentItem }) => {
     }
 
     return (
-        <li className='bg-gray-400/10 rounded-[10px] flex p-3 flex-col'>
+        <li className='bg-gray-400/10 rounded-[10px] flex p-3 flex-col' ref={ref}>
 
             <div className='flex gap-3 items-center'>
                 <PictureOrSavingLetter/>
@@ -36,9 +35,9 @@ export const CommentItem = ({ code, commentItem }) => {
                     <TitleComment {...{...commentItem, code, setShowReplyPanel, parentId : commentItem.commentId}}/>
                     <p
                         className={`text-gray-200 text-[14px] break-all line-clamp-3 ${showMoreComment ? 'line-clamp-none' : 'line-clamp-3'}`}>
-                        {commentItem.description}
+                        {commentItem.text}
                     </p>
-                    { commentItem.description.length > 1000 ? (
+                    { commentItem.text.length > 1000 ? (
                         <span
                             className='text-sm font-sans text-gray-200/55 hover:underline cursor-pointer select-none self-start'
                             role='button'
@@ -69,4 +68,4 @@ export const CommentItem = ({ code, commentItem }) => {
             ) }
         </li>
     )
-}
+})

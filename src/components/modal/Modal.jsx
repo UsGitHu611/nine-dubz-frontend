@@ -8,6 +8,9 @@ export const Modal = ({ children, showModal, width, setShowModal }) => {
     useEffect(() => {
         if(showModal){
             dialogRef.current.showModal();
+        }else {
+            dialogRef.current.close();
+            setShowModal(false);
         }
     },[showModal])
 

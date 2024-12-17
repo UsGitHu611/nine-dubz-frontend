@@ -6,6 +6,7 @@ import {router} from "./react-router/router.jsx";
 import "@/lib/i18n/i18n"
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import {HelmetProvider} from "react-helmet-async"
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {WindowWidthProvider} from "@/context/WindowWidthProvider.jsx";
 
 const queryClient = new QueryClient();
@@ -17,6 +18,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <RouterProvider router={router}/>
             </WindowWidthProvider>
         </HelmetProvider>
-        {/*<ReactQueryDevtools/>*/}
+        <ReactQueryDevtools/>
     </QueryClientProvider>
 )

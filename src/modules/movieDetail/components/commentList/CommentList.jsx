@@ -1,20 +1,17 @@
-import {useQuery} from "@tanstack/react-query";
 import {movieDetailStore} from "@modules/movieDetail/store/store.js";
 import {timeCreated} from "@/helper/timeCreated.js";
 import {CommentItem} from "@modules/movieDetail/components/commentItem/CommentItem.jsx";
-import {MobileBottomContent} from "@modules/movieDetail/components/mobileBottomContent/MobileBottomContent.jsx";
-import {MobileCommentProvider} from "@modules/movieDetail/context/MobileCommentProvider.jsx";
+import {useInfiniteList} from "@/hook/useInfiniteList.js";
 
 const CommentList = ({code}) => {
     const getCommentsReq = movieDetailStore(state => state.getComments);
     const commentList = movieDetailStore(state => state.commentList);
-
-    const {isLoading} = useQuery({
-        queryKey: ['getComments'],
-        queryFn: async () => getCommentsReq({code, offset: 0}),
-        enabled: !!code,
-        refetchOnWindowFocus: false
-    });
+    const {
+        lastElemObserver,
+        resultCommentList,
+        isPending,
+        isFetchingNextPage,
+    } = useInfiniteList(getCommentsReq, code);
 
     const commentListSource = Object.entries(commentList).reduce((prevV, currV) => {
         return currV[0] === 'commentsCount' ? prevV : [
@@ -40,11 +37,12 @@ const CommentList = ({code}) => {
             <ul className="flex flex-col gap-3 md-mobile:hidden before:hidden before:content-[attr(data-message)]
             before:text-gray-200/50 before:mx-auto empty:before:block"
             data-message='Будьте первым кто оставит комментарий!'>
-                {isLoading ? <h1>Loading</h1> : commentListSource.map((commentItem) => (
-                    <CommentItem key={commentItem.commentId} {...{code, commentItem}}/>
-                ))}
+                {isPending ? <h1>Loading</h1> : resultCommentList.pages.map((page) => (
+                    page.comments?.map((commentItem) => (
+                        <CommentItem key={commentItem.id} {...{code, commentItem}}/>
+                ))))}
             </ul>
-
+            <span ref={lastElemObserver}></span>
         </>
     )
 }

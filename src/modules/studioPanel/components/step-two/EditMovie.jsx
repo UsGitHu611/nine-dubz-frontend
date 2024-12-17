@@ -11,7 +11,6 @@ import {CoolUploadFile} from "@components/coolUploadFile/CoolUploadFile.jsx";
 export const EditMovie = () => {
     useUploadFile();
     const {
-        file,
         filePos,
         fileSize,
         isLoadFile,
@@ -38,7 +37,6 @@ export const EditMovie = () => {
         mutationFn: (formData) => createMovieInfo(formData),
         onSuccess : () => {
             setCurrentStep(0);
-            setShowModal(false);
         }
     })
 
@@ -48,7 +46,8 @@ export const EditMovie = () => {
         if(!formData.get("description").trim().length){
             formData.set("description", "Тут не будет никакого описания, ведь я чмо без фантазии")
         }
-       mutate(formData);
+        mutate(formData);
+        setShowModal(false);
     }
 
     return (

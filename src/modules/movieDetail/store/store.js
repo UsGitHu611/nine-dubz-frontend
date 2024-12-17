@@ -7,11 +7,12 @@ export const movieDetailStore = create((set, get) => ({
 
     getComments: async ({code, offset}) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/comment/${code}?offset=${offset}&limit=20`, {
+            const response = await fetch(`${import.meta.env.VITE_DEV_URL}/api/comment/${code}?offset=${offset}&limit=10`, {
                 credentials: "include"
             });
             const data = await response.json();
             if (response.ok) {
+                console.log(data)
                 set({
                     commentList: {
                         ...data?.comments?.reduce((prevV, currV) => {
